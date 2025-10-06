@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FurY Team</title>
+    <title>FurY Team - Equipo Competitivo</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; }
@@ -13,7 +13,7 @@
         header h1 { font-size: 48px; letter-spacing: 4px; text-transform: uppercase; background: linear-gradient(45deg, #fff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .main-container { display: flex; min-height: calc(100vh - 200px); }
         .sidebar { width: 250px; background: linear-gradient(135deg, rgba(139, 0, 0, 0.4), rgba(0, 0, 0, 0.7)); backdrop-filter: blur(10px); border-right: 2px solid rgba(255, 255, 255, 0.1); padding: 30px 0; box-shadow: 0 0 30px rgba(139, 0, 0, 0.3); }
-        .sidebar-item { padding: 20px 30px; color: #ccc; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent; font-size: 16px; }
+        .sidebar-item { padding: 20px 30px; color: #ccc; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent; font-size: 16px; user-select: none; }
         .sidebar-item:hover { background: rgba(255, 255, 255, 0.05); color: #fff; border-left-color: #fff; padding-left: 40px; }
         .sidebar-item.active { background: rgba(255, 255, 255, 0.1); color: #fff; border-left-color: #fff; }
         .content { flex: 1; padding: 60px; overflow-y: auto; }
@@ -32,8 +32,8 @@
         .player-item:hover { background: rgba(255, 255, 255, 0.08); transform: translateX(10px); }
         .player-item a { color: #fff; text-decoration: none; display: block; width: 100%; }
         .player-item a:hover { color: #ffa500; }
-        .screenshots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; margin-top: 30px; justify-items: center; }
-        .screenshot-item { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; transition: all 0.3s; width: 100%; max-width: 600px; height: auto; display: flex; align-items: center; justify-content: center; }
+        .screenshots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 30px; justify-items: center; }
+        .screenshot-item { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; transition: all 0.3s; width: 100%; max-width: 600px; }
         .screenshot-item:hover { transform: scale(1.02); border-color: rgba(255, 165, 0, 0.5); box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3); }
         .screenshot-item img { width: 100%; height: auto; object-fit: contain; display: block; }
         .demos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 30px; }
@@ -41,7 +41,7 @@
         .demo-item:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-5px); }
         .demo-item h4 { font-size: 22px; margin-bottom: 15px; color: #fff; }
         .demo-item p { color: #bbb; margin-bottom: 15px; line-height: 1.6; }
-        .demo-video { width: 100%; height: 200px; background: rgba(0, 0, 0, 0.5); border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
+        .demo-video { width: 100%; height: 250px; background: rgba(0, 0, 0, 0.5); border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
         .demo-video iframe { width: 100%; height: 100%; border: none; }
         .demo-date { font-size: 12px; color: #888; margin-top: 10px; }
         .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
@@ -69,7 +69,11 @@
 </head>
 <body>
     <div class="background"></div>
-    <header><h1>FurY Team</h1></header>
+    
+    <header>
+        <h1>FurY Team</h1>
+    </header>
+
     <div class="main-container">
         <aside class="sidebar">
             <div class="sidebar-item active" data-section="home">Inicio</div>
@@ -78,13 +82,19 @@
             <div class="sidebar-item" data-section="info">Info</div>
             <div class="sidebar-item" data-section="etc">Etc</div>
         </aside>
+
         <main class="content">
+            <!-- HOME SECTION -->
             <div class="section active" id="home">
-                <div class="logo-container"><img src="ScLeKrV.png" alt="FurY Team Logo"></div>
+                <div class="logo-container">
+                    <img src="ScLeKrV.png" alt="FurY Team Logo">
+                </div>
+
                 <div class="presentation">
                     <h2>Presentación</h2>
                     <p>Bienvenidos a FurY Team, donde la pasión por el gaming se encuentra con la competencia de alto nivel. Somos un equipo dedicado a llevar nuestras habilidades al máximo y dominar cada desafío que se nos presente.</p>
                 </div>
+
                 <div class="players-section">
                     <h3>FurY Team - Miembros activos (20)</h3>
                     <p style="text-align: center; color: #888; margin-bottom: 20px; font-size: 14px;">Última actualización: 19/09/25</p>
@@ -110,6 +120,7 @@
                         <div class="player-item">🇵🇪 FurY.S1ck - Por determinar</div>
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561199886082986" target="_blank">🇩🇴 FurYeXecKh4ir - STEAM_76561199886082986</a></div>
                     </div>
+                    
                     <h3 style="margin-top: 40px;">Inactivos (4)</h3>
                     <div class="players-list">
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198821062835" target="_blank">🇨🇱 FurY.Cristo - STEAM_0:1:430398553</a></div>
@@ -120,41 +131,53 @@
                 </div>
             </div>
 
+            <!-- SCREENSHOTS SECTION -->
             <div class="section" id="screen">
                 <div class="section-header">
                     <h2>SCREENSHOTS</h2>
                     <p>Los mejores momentos capturados en imagen</p>
                 </div>
                 <div class="screenshots-grid">
-                    <div class="screenshot-item"><img src="UNNAMEDvsPOKER.jpg" alt="Torneo 1"></div>
-                    <div class="screenshot-item"><img src="HUNKVSMONARCH.jpg" alt="Torneo 2"></div>
-                    <div class="screenshot-item"><img src="WhatsApp Image 2025-10-03 at 10.38.26 AM.jpeg" alt="Torneo 3"></div>
+                    <div class="screenshot-item">
+                        <img src="UNNAMEDvsPOKER.jpg" alt="UNNAMED vs POKER">
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="HUNKVSMONARCH.jpg" alt="HUNK vs MONARCH">
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="WhatsApp Image 2025-10-03 at 10.38.26 AM.jpeg" alt="Torneo WhatsApp">
+                    </div>
                 </div>
             </div>
 
+            <!-- DEMOS SECTION -->
             <div class="section" id="demos">
                 <div class="section-header">
                     <h2>DEMOS</h2>
                     <p>Revive nuestras mejores partidas y jugadas destacadas</p>
                 </div>
                 <div class="demos-grid">
-                    <!-- Ejemplo de demo - descomenta y personaliza -->
-                    <!-- <div class="demo-item">
+                    <!-- Ejemplo de demo - Para agregar más, duplica este bloque y cambia el VIDEO_ID -->
+                    <!--
+                    <div class="demo-item">
                         <div class="demo-video">
                             <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
                         </div>
                         <h4>Título del Demo</h4>
-                        <p>Descripción del demo</p>
-                        <p class="demo-date">10 de Octubre, 2025</p>
-                    </div> -->
+                        <p>Descripción de la partida, jugador destacado, mapa, resultado final.</p>
+                        <p class="demo-date">Subido el: 10 de Octubre, 2025</p>
+                    </div>
+                    -->
                 </div>
             </div>
 
+            <!-- INFO SECTION -->
             <div class="section" id="info">
                 <div class="section-header">
                     <h2>INFORMACIÓN</h2>
                     <p>Todo lo que necesitas saber sobre FurY Team</p>
                 </div>
+
                 <div class="info-cards">
                     <div class="info-card">
                         <h4>🏆 Logros</h4>
@@ -163,16 +186,19 @@
                         <p><strong>Win Rate:</strong> 75%</p>
                         <p><strong>Ranking actual:</strong> Top 7 global AG</p>
                     </div>
+
                     <div class="info-card">
                         <h4>📅 Historia</h4>
                         <p>Fundado en Marzo 2025, Fundado por el apasionado a la informática, dando aportes constantes a la comunidad de AG, RTXA. Y secuaces, Poker, Pelo, Leo, Hunk y Washo.</p>
                         <p><strong>Para donaciones:</strong> 3813026158</p>
                     </div>
+
                     <div class="info-card">
                         <h4>🎯 Misión</h4>
                         <p>Nuestra misión es llevar el gaming competitivo al siguiente nivel, demostrando dedicación, trabajo en equipo y habilidad excepcional.</p>
                         <p>Aspiramos a competir internacionalmente.</p>
                     </div>
+
                     <div class="info-card">
                         <h4>⚡ Valores</h4>
                         <p><strong>Trabajo en equipo:</strong> La comunicación es clave</p>
@@ -180,6 +206,7 @@
                         <p><strong>Respeto:</strong> Fair play siempre</p>
                         <p><strong>Excelencia:</strong> Buscar la mejora continua</p>
                     </div>
+
                     <div class="info-card">
                         <h4>🎮 Juegos</h4>
                         <p>Competimos principalmente en:</p>
@@ -189,6 +216,7 @@
                 </div>
             </div>
 
+            <!-- ETC SECTION -->
             <div class="section" id="etc">
                 <div class="section-header">
                     <h2>MÁS SOBRE FURY</h2>
@@ -204,32 +232,35 @@
     </footer>
 
     <script>
-        // Función para cambiar de sección
-        document.querySelectorAll('.sidebar-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const sectionId = this.getAttribute('data-section');
-                
-                // Ocultar todas las secciones
-                document.querySelectorAll('.section').forEach(section => {
-                    section.classList.remove('active');
+        // Sistema de navegación entre secciones
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            const sections = document.querySelectorAll('.section');
+            
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetSection = this.getAttribute('data-section');
+                    
+                    // Remover clase active de todas las secciones
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Remover clase active de todos los items del sidebar
+                    sidebarItems.forEach(sidebarItem => sidebarItem.classList.remove('active'));
+                    
+                    // Agregar clase active a la sección seleccionada
+                    document.getElementById(targetSection).classList.add('active');
+                    
+                    // Agregar clase active al item clickeado
+                    this.classList.add('active');
+                    
+                    // Scroll suave al inicio del contenido
+                    document.querySelector('.content').scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                 });
-                
-                // Mostrar la sección seleccionada
-                document.getElementById(sectionId).classList.add('active');
-                
-                // Actualizar sidebar
-                document.querySelectorAll('.sidebar-item').forEach(i => {
-                    i.classList.remove('active');
-                });
-                this.classList.add('active');
-                
-                // Scroll al inicio
-                document.querySelector('.content').scrollTop = 0;
             });
         });
     </script>
 </body>
 </html>
-
-
-
