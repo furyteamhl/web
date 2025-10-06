@@ -1,7 +1,6 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FurY Team</title>
@@ -43,7 +42,6 @@
             opacity: 0.08;
             filter: blur(2px);
         }
-        
 
         header {
             background: rgba(0, 0, 0, 0.8);
@@ -601,38 +599,6 @@
     </style>
 </head>
 <body>
-  
-<!-- Firebase SDK (CDN Compat) -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
-<script>
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyCJUC276VknSn4EaqgFzFRMZvNdmXJPdu0",
-        authDomain: "galeri-web-1a4b1.firebaseapp.com",
-        projectId: "galeri-web-1a4b1",
-        storageBucket: "galeri-web-1a4b1.firebasestorage.app",
-        messagingSenderId: "410120444363",
-        appId: "1:410120444363:web:389f68f424f2b6af6bf3e4e",
-        measurementId: "G-H5Y0751X5W"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-    
-    // Initialize services
-    const storage = firebase.storage();
-    const db = firebase.firestore();
-
-    // Aquí irán todas tus funciones (uploadScreenshots, cargarScreenshots, etc.)
-</script>
-    
-</script>
-  
     <div class="background"></div>
 
     <header>
@@ -696,17 +662,23 @@
                 </div>
             </div>
 
-            <div class="screenshots-grid" id="screenshots-container">
-    <div class="screenshot-item">
-        <img src="UNNAMEDvsPOKER.jpg" alt="Torneo 1">
-    </div>
-    <div class="screenshot-item">
-        <img src="HUNKVSMONARCH.jpg" alt="Torneo 2">
-    </div>
-    <div class="screenshot-item">
-        <img src="WhatsApp Image 2025-10-03 at 10.38.26 AM.jpeg" alt="Torneo 3">
-    </div>
-</div>
+            <!-- Screen Section -->
+            <div class="section" id="screen">
+                <div class="section-header">
+                    <h2>SCREENSHOTS</h2>
+                    <p>Los mejores momentos capturados en imagen</p>
+                </div>
+
+                <!-- Login para Screenshots -->
+                <div class="login-section" id="screen-login">
+                    <h3>🔒 Acceso para Administradores</h3>
+                    <p style="color: #999; margin-bottom: 20px;">Inicia sesión para publicar screenshots</p>
+                    <div class="upload-form">
+                        <input type="text" id="screen-username" placeholder="Usuario" class="demo-input">
+                        <input type="password" id="screen-password" placeholder="Contraseña" class="demo-input">
+                        <button onclick="loginScreen()" class="upload-btn">Iniciar Sesión</button>
+                    </div>
+                </div>
 
                 <!-- Sección de subida (oculta inicialmente) -->
                 <div class="upload-section hidden" id="screen-upload-section">
@@ -720,13 +692,7 @@
                 </div>
 
                 <div class="screenshots-grid" id="screenshots-container">
-                    <!-- Placeholders iniciales (se pueden agregar hasta 60 imágenes) -->
-                    <div class="screenshot-item">📸 Espacio para imagen</div>
-                    <div class="screenshot-item">📸 Espacio para imagen</div>
-                    <div class="screenshot-item">📸 Espacio para imagen</div>
-                    <div class="screenshot-item">📸 Espacio para imagen</div>
-                    <div class="screenshot-item">📸 Espacio para imagen</div>
-                    <div class="screenshot-item">📸 Espacio para imagen</div>
+                    <!-- Las imágenes de Firebase se cargarán aquí -->
                 </div>
             </div>
 
@@ -777,411 +743,7 @@
                         <h4>🏆 Logros</h4>
                         <p><strong>Torneos ganados:</strong> 0</p>
                         <p><strong>Partidas jugadas:</strong> 500+</p>
-                        <p><strong>Win Rate:</strong> 75%</p>
-                        <p><strong>Ranking actual:</strong> Top 7 global AG</p>
-                    </div>
-
-                    <div class="info-card">
-                        <h4>📅 Historia</h4>
-                        <p>Fundado en Marzo 2025, Fundado por el apasionado a la informática, dando aportes constantes a la comunidad de AG, RTXA. Y secuaces, Poker, Pelo, Leo, Hunk y Washo.</p>
-                        <p><strong>Para donaciones:</strong> 3813026158</p>
-                    </div>
-
-                    <div class="info-card">
-                        <h4>🎯 Misión</h4>
-                        <p>Nuestra misión es llevar el gaming competitivo al siguiente nivel, demostrando dedicación, trabajo en equipo y habilidad excepcional.</p>
-                        <p>Aspiramos a competir internacionalmente.</p>
-                    </div>
-
-                    <div class="info-card">
-                        <h4>⚡ Valores</h4>
-                        <p><strong>Trabajo en equipo:</strong> La comunicación es clave</p>
-                        <p><strong>Dedicación:</strong> Entrenamiento constante</p>
-                        <p><strong>Respeto:</strong> Fair play siempre</p>
-                        <p><strong>Excelencia:</strong> Buscar la mejora continua</p>
-                    </div>
-
-                    <div class="info-card">
-                        <h4>🎮 Juegos</h4>
-                        <p>Competimos principalmente en:</p>
-                        <p>• Half Life 1 (AG)</p>
-                        <p>• Counter-Strike 2</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Etc Section -->
-            <div class="section" id="etc">
-                <div class="section-header">
-                    <h2>MÁS SOBRE FURY</h2>
-                    <p>En procedimiento...</p>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <footer>
-        <p>© 2025 FurY Team - Todos los derechos reservados</p>
-        <p><a href="#contacto">Contacto</a> | <a href="#info">Información</a></p>
-    </footer>
-
-    <script>
-        // Variables globales
-        let screenshots = [];
-        let demos = [];
-        
-        // Usuarios autorizados (puedes agregar más usuarios aquí)
-        const authorizedUsers = {
-            'admin': 'fury2025',
-            'rtxA': 'rtxA123',
-            'TeamLeader': 'leader456'
-        };
-        
-        // Estado de autenticación
-        let screenAuthenticated = false;
-        let demosAuthenticated = false;
-
-        // Función para cambiar de sección
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.classList.remove('active'));
-            
-            document.getElementById(sectionId).classList.add('active');
-            
-            const sidebarItems = document.querySelectorAll('.sidebar-item');
-            sidebarItems.forEach(item => item.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            document.querySelector('.content').scrollTop = 0;
-        }
-
-        // Funciones de login para Screen
-        function loginScreen() {
-            const username = document.getElementById('screen-username').value.trim();
-            const password = document.getElementById('screen-password').value.trim();
-            
-            if (authorizedUsers[username] && authorizedUsers[username] === password) {
-                screenAuthenticated = true;
-                document.getElementById('screen-login').classList.add('hidden');
-                document.getElementById('screen-upload-section').classList.remove('hidden');
-                alert('¡Acceso concedido! Bienvenido ' + username);
-            } else {
-                alert('Usuario o contraseña incorrectos');
-            }
-        }
-
-        function logoutScreen() {
-            screenAuthenticated = false;
-            document.getElementById('screen-login').classList.remove('hidden');
-            document.getElementById('screen-upload-section').classList.add('hidden');
-            document.getElementById('screen-username').value = '';
-            document.getElementById('screen-password').value = '';
-        }
-
-        // Funciones de login para Demos
-        function loginDemos() {
-            const username = document.getElementById('demos-username').value.trim();
-            const password = document.getElementById('demos-password').value.trim();
-            
-            if (authorizedUsers[username] && authorizedUsers[username] === password) {
-                demosAuthenticated = true;
-                document.getElementById('demos-login').classList.add('hidden');
-                document.getElementById('demos-upload-section').classList.remove('hidden');
-                alert('¡Acceso concedido! Bienvenido ' + username);
-            } else {
-                alert('Usuario o contraseña incorrectos');
-            }
-        }
-
-        function logoutDemos() {
-            demosAuthenticated = false;
-            document.getElementById('demos-login').classList.remove('hidden');
-            document.getElementById('demos-upload-section').classList.add('hidden');
-            document.getElementById('demos-username').value = '';
-            document.getElementById('demos-password').value = '';
-        }
-
-       // Función para subir screenshots
-async function uploadScreenshots() {
-    if (!screenAuthenticated) {
-        alert('Debes iniciar sesión primero');
-        return;
-    }
-
-    const fileInput = document.getElementById('screenshot-upload');
-    const files = fileInput.files;
-
-    if (files.length === 0) {
-        alert('Por favor selecciona al menos una imagen');
-        return;
-    }
-
- // Función para contar screenshots existentes
-async function contarScreenshots() {
-    try {
-        const querySnapshot = await getDocs(collection(db, "screenshots"));
-        return querySnapshot.size;
-    } catch (error) {
-        console.error('Error al contar screenshots:', error);
-        return 0;
-    }
-}
-
-// Función para cargar todos los screenshots
-async function cargarScreenshots() {
-    try {
-        const querySnapshot = await getDocs(collection(db, "screenshots"));
-        const container = document.getElementById("screenshots-container");
-        
-        // Limpiar contenedor
-        container.innerHTML = "";
-        
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            
-            // Crear elemento de screenshot
-            const screenshotDiv = document.createElement("div");
-            screenshotDiv.className = "screenshot-item";
-            screenshotDiv.innerHTML = `<img src="${data.url}" alt="${data.nombre}">`;
-            
-            container.appendChild(screenshotDiv);
-        });
-        
-    } catch (error) {
-        console.error("Error al cargar screenshots:", error);
-    }
-}
-
-    // Mostrar mensaje de carga
-    const uploadBtn = document.querySelector('.upload-btn');
-    uploadBtn.textContent = 'Subiendo...';
-    uploadBtn.disabled = true;
-
-    try {
-        // Subir cada archivo a Firebase
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            
-            // Crear referencia única
-            const timestamp = Date.now();
-            const storageRef = ref(storage, `screenshots/${timestamp}_${file.name}`);
-            
-            // Subir archivo
-            await uploadBytes(storageRef, file);
-            
-            // Obtener URL
-            const downloadURL = await getDownloadURL(storageRef);
-            
-            // Guardar en Firestore
-            await addDoc(collection(db, "screenshots"), {
-                url: downloadURL,
-                nombre: file.name,
-                fecha: new Date().toISOString()
-            });
-        }
-
-        alert('Screenshots subidos exitosamente!');
-        
-        // Recargar screenshots
-        await cargarScreenshots();
-        
-        // Limpiar input
-        fileInput.value = '';
-        
-        // Ocultar sección de upload
-        logoutScreen();
-
-    } catch (error) {
-        console.error('Error al subir screenshots:', error);
-        alert('Error al subir las imágenes. Intenta de nuevo.');
-    } finally {
-        uploadBtn.textContent = 'Agregar Screenshots';
-        uploadBtn.disabled = false;
-    }
-}
-            
-            // Verificar límite de 60 imágenes
-            if (screenshots.length + files.length > 60) {
-                alert(`Solo puedes tener hasta 60 screenshots. Actualmente tienes ${screenshots.length}. Puedes agregar ${60 - screenshots.length} más.`);
-                return;
-            }
-            
-            const container = document.getElementById('screenshots-container');
-            
-            // Eliminar placeholders solo la primera vez
-            if (screenshots.length === 0) {
-                const placeholders = container.querySelectorAll('.screenshot-item:not(:has(img)):not(:has(button))');
-                placeholders.forEach(p => p.remove());
-            }
-            
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    const screenshotDiv = document.createElement('div');
-                    screenshotDiv.className = 'screenshot-item';
-                    screenshotDiv.innerHTML = `
-                        <img src="${e.target.result}" alt="Screenshot">
-                        <button class="delete-screenshot-btn" onclick="deleteScreenshot(this)">✕ Eliminar</button>
-                    `;
-                    container.appendChild(screenshotDiv);
-                    
-                    screenshots.push(e.target.result);
-                };
-                
-                reader.readAsDataURL(file);
-            }
-            
-            fileInput.value = '';
-            alert(`Screenshots agregados exitosamente! Total: ${screenshots.length}/60`);
-        }
-
-        function deleteScreenshot(button) {
-            if (!screenAuthenticated) {
-                alert('Debes iniciar sesión para eliminar screenshots');
-                return;
-            }
-            
-            if (confirm('¿Estás seguro de que quieres eliminar esta imagen?')) {
-                const screenshotItem = button.parentElement;
-                const index = Array.from(screenshotItem.parentElement.children).indexOf(screenshotItem);
-                screenshots.splice(index, 1);
-                screenshotItem.remove();
-                
-                const container = document.getElementById('screenshots-container');
-                if (container.children.length === 0) {
-                    container.innerHTML = `
-                        <div class="screenshot-item">📸 Espacio para imagen</div>
-                        <div class="screenshot-item">📸 Espacio para imagen</div>
-                        <div class="screenshot-item">📸 Espacio para imagen</div>
-                        <div class="screenshot-item">📸 Espacio para imagen</div>
-                        <div class="screenshot-item">📸 Espacio para imagen</div>
-                        <div class="screenshot-item">📸 Espacio para imagen</div>
-                    `;
-                }
-            }
-        }
-
-        function uploadDemo() {
-            if (!demosAuthenticated) {
-                alert('Debes iniciar sesión primero');
-                return;
-            }
-            
-            const title = document.getElementById('demo-title').value.trim();
-            const description = document.getElementById('demo-description').value.trim();
-            const videoUrl = document.getElementById('demo-video-url').value.trim();
-
-            if (!title) {
-                alert('Por favor ingresa un título para el demo');
-                return;
-            }
-
-            if (!description) {
-                alert('Por favor ingresa una descripción');
-                return;
-            }
-
-            const newDemo = {
-                title: title,
-                description: description,
-                videoUrl: videoUrl,
-                date: new Date().toLocaleDateString('es-ES', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                })
-            };
-
-            demos.unshift(newDemo);
-            loadDemos();
-
-            document.getElementById('demo-title').value = '';
-            document.getElementById('demo-description').value = '';
-            document.getElementById('demo-video-url').value = '';
-
-            alert('Demo agregado exitosamente!');
-        }
-
-        function loadDemos() {
-            const demosContainer = document.getElementById('demos-container');
-            demosContainer.innerHTML = '';
-
-            if (demos.length === 0) {
-                demosContainer.innerHTML = '<p style="text-align: center; color: #888; grid-column: 1/-1;">No hay demos disponibles. ¡Los administradores pueden subir demos!</p>';
-                return;
-            }
-
-            demos.forEach((demo, index) => {
-                const demoElement = document.createElement('div');
-                demoElement.className = 'demo-item';
-                
-                let videoContent = '';
-                if (demo.videoUrl) {
-                    let embedUrl = '';
-                    if (demo.videoUrl.includes('youtube.com') || demo.videoUrl.includes('youtu.be')) {
-                        const videoId = extractYouTubeID(demo.videoUrl);
-                        if (videoId) {
-                            embedUrl = `https://www.youtube.com/embed/${videoId}`;
-                        }
-                    } else if (demo.videoUrl.includes('streamable.com')) {
-                        const videoId = demo.videoUrl.split('/').pop();
-                        embedUrl = `https://streamable.com/e/${videoId}`;
-                    }
-                    
-                    if (embedUrl) {
-                        videoContent = `<div class="demo-video"><iframe src="${embedUrl}" allowfullscreen></iframe></div>`;
-                    } else {
-                        videoContent = `<div class="demo-placeholder"><a href="${demo.videoUrl}" target="_blank" style="color: #fff;">▶ Ver Video</a></div>`;
-                    }
-                } else {
-                    videoContent = '<div class="demo-placeholder">🎮 Sin video</div>';
-                }
-
-                // Solo mostrar botón de eliminar si está autenticado
-                const deleteBtn = demosAuthenticated ? `<button class="delete-demo-btn" onclick="deleteDemo(${index})">✕ Eliminar</button>` : '';
-
-                demoElement.innerHTML = `
-                    ${deleteBtn}
-                    ${videoContent}
-                    <h4>${demo.title}</h4>
-                    <p>${demo.description}</p>
-                    <p class="demo-date">Subido el: ${demo.date}</p>
-                `;
-                
-                demosContainer.appendChild(demoElement);
-            });
-        }
-
-        function extractYouTubeID(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
-        }
-
-        function deleteDemo(index) {
-            if (!demosAuthenticated) {
-                alert('Debes iniciar sesión para eliminar demos');
-                return;
-            }
-            
-            if (confirm('¿Estás seguro de que quieres eliminar este demo?')) {
-                demos.splice(index, 1);
-                loadDemos();
-            }
-        }
-
-        loadDemos();
-    </script>
-</body>
-
-</html>
-
-
-
+                        <p>
 
 
 
