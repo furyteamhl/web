@@ -72,14 +72,13 @@
     <header><h1>FurY Team</h1></header>
     <div class="main-container">
         <aside class="sidebar">
-            <div class="sidebar-item active" onclick="showSection('home')">Inicio</div>
-            <div class="sidebar-item" onclick="showSection('screen')">Screen</div>
-            <div class="sidebar-item" onclick="showSection('demos')">Demos</div>
-            <div class="sidebar-item" onclick="showSection('info')">Info</div>
-            <div class="sidebar-item" onclick="showSection('etc')">Etc</div>
+            <div class="sidebar-item active" data-section="home">Inicio</div>
+            <div class="sidebar-item" data-section="screen">Screen</div>
+            <div class="sidebar-item" data-section="demos">Demos</div>
+            <div class="sidebar-item" data-section="info">Info</div>
+            <div class="sidebar-item" data-section="etc">Etc</div>
         </aside>
         <main class="content">
-            <!-- Inicio -->
             <div class="section active" id="home">
                 <div class="logo-container"><img src="ScLeKrV.png" alt="FurY Team Logo"></div>
                 <div class="presentation">
@@ -121,7 +120,6 @@
                 </div>
             </div>
 
-            <!-- Screenshots -->
             <div class="section" id="screen">
                 <div class="section-header">
                     <h2>SCREENSHOTS</h2>
@@ -134,26 +132,24 @@
                 </div>
             </div>
 
-            <!-- Demos -->
             <div class="section" id="demos">
                 <div class="section-header">
                     <h2>DEMOS</h2>
                     <p>Revive nuestras mejores partidas y jugadas destacadas</p>
                 </div>
                 <div class="demos-grid">
-                    <!-- Agrega tus demos aquí. Ejemplo: -->
+                    <!-- Ejemplo de demo - descomenta y personaliza -->
                     <!-- <div class="demo-item">
                         <div class="demo-video">
                             <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
                         </div>
                         <h4>Título del Demo</h4>
                         <p>Descripción del demo</p>
-                        <p class="demo-date">Fecha</p>
+                        <p class="demo-date">10 de Octubre, 2025</p>
                     </div> -->
                 </div>
             </div>
 
-            <!-- Info -->
             <div class="section" id="info">
                 <div class="section-header">
                     <h2>INFORMACIÓN</h2>
@@ -193,7 +189,6 @@
                 </div>
             </div>
 
-            <!-- Etc -->
             <div class="section" id="etc">
                 <div class="section-header">
                     <h2>MÁS SOBRE FURY</h2>
@@ -209,15 +204,29 @@
     </footer>
 
     <script>
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            const sidebarItems = document.querySelectorAll('.sidebar-item');
-            sidebarItems.forEach(item => item.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelector('.content').scrollTop = 0;
-        }
+        // Función para cambiar de sección
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                
+                // Ocultar todas las secciones
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Mostrar la sección seleccionada
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Actualizar sidebar
+                document.querySelectorAll('.sidebar-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Scroll al inicio
+                document.querySelector('.content').scrollTop = 0;
+            });
+        });
     </script>
 </body>
 </html>
