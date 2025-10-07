@@ -159,17 +159,15 @@
                     <p>Revive nuestras mejores partidas y jugadas destacadas</p>
                 </div>
                 <div class="demos-grid">
-                    <!-- Ejemplo de demo - Para agregar más, duplica este bloque y cambia el VIDEO_ID -->
-                    <!--
+                    <!-- Demo 1 -->
                     <div class="demo-item">
                         <div class="demo-video">
-                            <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/ff9gVcPod-E" allowfullscreen></iframe>
                         </div>
-                        <h4>Título del Demo</h4>
-                        <p>Descripción de la partida, jugador destacado, mapa, resultado final.</p>
-                        <p class="demo-date">Subido el: 10 de Octubre, 2025</p>
+                        <h4>Torneo OGHL 3v3 GLOBAL MAJOR</h4>
+                        <p>FURY VS SUNAT - SEMIFINAL</p>
+                        <p class="demo-date">Partida épica de semifinales</p>
                     </div>
-                    -->
                 </div>
             </div>
 
@@ -234,26 +232,6 @@
     </footer>
 
     <script>
-        // Función global para entrar al sitio
-        function entrarSitio() {
-            const music = document.getElementById('background-music');
-            const entryScreen = document.getElementById('entry-screen');
-            
-            music.volume = 0.6;
-            
-            // Intentar reproducir música
-            music.play().catch(function(error) {
-                console.log('No se pudo reproducir audio:', error);
-            });
-            
-            // Ocultar pantalla de entrada
-            entryScreen.style.opacity = '0';
-            entryScreen.style.transition = 'opacity 1s';
-            setTimeout(function() {
-                entryScreen.style.display = 'none';
-            }, 1000);
-        }
-
         // Sistema de navegación entre secciones
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarItems = document.querySelectorAll('.sidebar-item');
