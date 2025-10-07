@@ -10,28 +10,10 @@
         .background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a0a; z-index: -1; }
         .background::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url(NWT25O3.png); background-size: 40%; background-position: center; background-repeat: no-repeat; opacity: 0.08; filter: blur(2px); }
         
-        /* Mensaje de música */
-        #click-to-play {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(139, 0, 0, 0.95);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            z-index: 99999;
-            display: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.6);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); }
+        /* Animación de brillo */
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(139, 0, 0, 0.8), 0 0 40px rgba(139, 0, 0, 0.6); }
+            50% { text-shadow: 0 0 30px rgba(139, 0, 0, 1), 0 0 60px rgba(139, 0, 0, 0.8); }
         }
         
         header { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); padding: 30px; text-align: center; border-bottom: 2px solid rgba(255, 255, 255, 0.1); }
@@ -272,27 +254,44 @@
     </footer>
 
     <script>
-        // Sistema de música
-        const music = document.getElementById('background-music');
-        const clickMessage = document.getElementById('click-to-play');
-        
-        music.volume = 0.5;
-        
-        window.addEventListener('load', function() {
-            music.play().catch(() => {
-                clickMessage.style.display = 'block';
+        // Sistema de entrada con música
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('background-music');
+            const entryScreen = document.getElementById('entry-screen');
+            const enterBtn = document.getElementById('enter-btn');
+            
+            music.volume = 0.6;
+            
+            // Efecto hover en botón
+            enterBtn.addEventListener('mouseenter', function() {
+                enterBtn.style.transform = 'scale(1.1)';
+                enterBtn.style.boxShadow = '0 0 50px rgba(139, 0, 0, 1)';
             });
-        });
-        
-        document.addEventListener('click', function() {
-            music.play().then(() => {
-                clickMessage.style.display = 'none';
+            
+            enterBtn.addEventListener('mouseleave', function() {
+                enterBtn.style.transform = 'scale(1)';
+                enterBtn.style.boxShadow = '0 0 30px rgba(139, 0, 0, 0.8)';
             });
-        }, { once: true });
-        
-        clickMessage.addEventListener('click', function() {
-            music.play().then(() => {
-                clickMessage.style.display = 'none';
+            
+            // Entrar al sitio y activar música
+            enterBtn.addEventListener('click', function() {
+                console.log('Botón clickeado'); // Para debug
+                music.play().then(() => {
+                    console.log('Música iniciada');
+                    entryScreen.style.opacity = '0';
+                    entryScreen.style.transition = 'opacity 1s';
+                    setTimeout(() => {
+                        entryScreen.style.display = 'none';
+                    }, 1000);
+                }).catch(error => {
+                    console.error('Error al reproducir música:', error);
+                    // Aunque falle el audio, permitir entrar
+                    entryScreen.style.opacity = '0';
+                    entryScreen.style.transition = 'opacity 1s';
+                    setTimeout(() => {
+                        entryScreen.style.display = 'none';
+                    }, 1000);
+                });
             });
         });
 
