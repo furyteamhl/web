@@ -68,57 +68,54 @@
     </style>
 </head>
 <body>
-<!-- Botón de música flotante -->
-<button id="music-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; padding: 15px 25px; background: linear-gradient(135deg, rgba(139, 0, 0, 0.9), rgba(70, 0, 0, 0.9)); color: white; border: 2px solid rgba(255,255,255,0.3); border-radius: 50px; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 15px rgba(139, 0, 0, 0.5); transition: all 0.3s;">
-    🎵 Bryant Myers - Killa
-</button>
+<!-- Mensaje simple para activar música (solo si es bloqueado) -->
+<div id="click-to-play" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(139, 0, 0, 0.95); color: white; padding: 15px 30px; border-radius: 50px; z-index: 99999; display: none; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 20px rgba(139, 0, 0, 0.6); animation: pulse 2s infinite;">
+    🎵 Click para activar música
+</div>
 
-<!-- Audio -->
-<audio id="background-music" loop volume="0.5">
+<!-- Audio sin controles -->
+<audio id="background-music" loop autoplay>
     <source src="Bryant Myers x Clarent - Killa (Video Oficial).mp3" type="audio/mpeg">
+    <source src="killa.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Script para controlar la música -->
+<style>
+    @keyframes pulse {
+        0%, 100% { transform: translateX(-50%) scale(1); }
+        50% { transform: translateX(-50%) scale(1.05); }
+    }
+</style>
+
 <script>
     const music = document.getElementById('background-music');
-    const toggle = document.getElementById('music-toggle');
-    let isPlaying = false;
-
-    // Estilo hover para el botón
-    toggle.addEventListener('mouseenter', function() {
-        toggle.style.transform = 'scale(1.05)';
-        toggle.style.boxShadow = '0 6px 20px rgba(139, 0, 0, 0.7)';
-    });
-
-    toggle.addEventListener('mouseleave', function() {
-        toggle.style.transform = 'scale(1)';
-        toggle.style.boxShadow = '0 4px 15px rgba(139, 0, 0, 0.5)';
-    });
-
-    // Control de reproducción
-    toggle.addEventListener('click', function() {
-        if (isPlaying) {
-            music.pause();
-            toggle.innerHTML = '🔇 Música OFF';
-            toggle.style.background = 'linear-gradient(135deg, rgba(80, 80, 80, 0.9), rgba(50, 50, 50, 0.9))';
-        } else {
-            music.play();
-            toggle.innerHTML = '🎵 Bryant Myers - Killa';
-            toggle.style.background = 'linear-gradient(135deg, rgba(139, 0, 0, 0.9), rgba(70, 0, 0, 0.9))';
-        }
-        isPlaying = !isPlaying;
-    });
-
-    // Intenta reproducir automáticamente al cargar
+    const clickMessage = document.getElementById('click-to-play');
+    
+    // Configurar volumen
+    music.volume = 0.5;
+    
+    // Intentar reproducir automáticamente al cargar la página
     window.addEventListener('load', function() {
-        music.play().then(() => {
-            isPlaying = true;
-            toggle.innerHTML = '🎵 Bryant Myers - Killa';
-        }).catch(() => {
-            console.log('Haz click en el botón para activar la música');
-            toggle.innerHTML = '▶️ Click para música';
+        music.play().catch(() => {
+            // Si el navegador bloquea, mostrar mensaje
+            clickMessage.style.display = 'block';
         });
     });
+    
+    // Activar con cualquier click en la página
+    document.addEventListener('click', function() {
+        music.play().then(() => {
+            clickMessage.style.display = 'none';
+        });
+    }, { once: true });
+    
+    // Click en el mensaje
+    clickMessage.addEventListener('click', function() {
+        music.play().then(() => {
+            clickMessage.style.display = 'none';
+        });
+    });
+</script>
+    
 </script>
     <div class="background"></div>
     
@@ -316,6 +313,7 @@
     </script>
 </body>
 </html>
+
 
 
 
