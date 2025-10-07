@@ -321,6 +321,44 @@
             }
         }
         
+        /* Botón de música flotante */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4a90e2, #2c5aa0);
+            border: 3px solid rgba(65, 105, 225, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            box-shadow: 0 5px 25px rgba(65, 105, 225, 0.6);
+            transition: all 0.3s;
+            font-size: 24px;
+        }
+        
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 35px rgba(65, 105, 225, 0.8);
+        }
+        
+        .music-control.playing {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 5px 25px rgba(65, 105, 225, 0.6);
+            }
+            50% {
+                box-shadow: 0 5px 35px rgba(65, 105, 225, 1);
+            }
+        }
+        
         .demos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 30px; }
         .demo-item { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 25px; transition: all 0.3s; }
         .demo-item:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-5px); }
@@ -599,6 +637,47 @@
     </footer>
 
     <script>
+        // Control de música
+        let backgroundMusic;
+        let musicControl;
+        let isPlaying = false;
+        
+        function toggleMusic() {
+            if (!backgroundMusic) return;
+            
+            if (isPlaying) {
+                backgroundMusic.pause();
+                musicControl.textContent = '🔇';
+                musicControl.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                backgroundMusic.play();
+                musicControl.textContent = '🎵';
+                musicControl.classList.add('playing');
+                isPlaying = true;
+            }
+        }
+        
+        // Inicializar música cuando cargue el DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            backgroundMusic = document.getElementById('backgroundMusic');
+            musicControl = document.getElementById('musicControl');
+            
+            if (backgroundMusic) {
+                backgroundMusic.volume = 0.3; // 30% de volumen
+                
+                // Intentar reproducir automáticamente después del hackeo
+                setTimeout(() => {
+                    backgroundMusic.play().then(() => {
+                        isPlaying = true;
+                        musicControl.classList.add('playing');
+                    }).catch(() => {
+                        console.log('Click en el botón para activar la música');
+                    });
+                }, 4000);
+            }
+        });
+        
         // Efecto de hackeo al cargar
         const hackMessages = [
             '> Iniciando conexión segura...',
