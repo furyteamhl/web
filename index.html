@@ -9,6 +9,31 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; }
         .background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a0a; z-index: -1; }
         .background::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url(NWT25O3.png); background-size: 40%; background-position: center; background-repeat: no-repeat; opacity: 0.08; filter: blur(2px); }
+        
+        /* Mensaje de música */
+        #click-to-play {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(139, 0, 0, 0.95);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            z-index: 99999;
+            display: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.6);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+        }
+        
         header { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); padding: 30px; text-align: center; border-bottom: 2px solid rgba(255, 255, 255, 0.1); }
         header h1 { font-size: 48px; letter-spacing: 4px; text-transform: uppercase; background: linear-gradient(45deg, #fff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .main-container { display: flex; min-height: calc(100vh - 200px); }
@@ -68,55 +93,17 @@
     </style>
 </head>
 <body>
-<!-- Mensaje simple para activar música (solo si es bloqueado) -->
-<div id="click-to-play" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(139, 0, 0, 0.95); color: white; padding: 15px 30px; border-radius: 50px; z-index: 99999; display: none; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 20px rgba(139, 0, 0, 0.6); animation: pulse 2s infinite;">
-    🎵 Click para activar música
-</div>
+    <!-- Mensaje de música -->
+    <div id="click-to-play">
+        🎵 Click para activar música
+    </div>
 
-<!-- Audio sin controles -->
-<audio id="background-music" loop autoplay>
-    <source src="Bryant Myers x Clarent - Killa (Video Oficial).mp3" type="audio/mpeg">
-    <source src="killa.mp3" type="audio/mpeg">
-</audio>
+    <!-- Audio sin controles -->
+    <audio id="background-music" loop autoplay>
+        <source src="Bryant Myers x Clarent - Killa (Video Oficial).mp3" type="audio/mpeg">
+        <source src="killa.mp3" type="audio/mpeg">
+    </audio>
 
-<style>
-    @keyframes pulse {
-        0%, 100% { transform: translateX(-50%) scale(1); }
-        50% { transform: translateX(-50%) scale(1.05); }
-    }
-</style>
-
-<script>
-    const music = document.getElementById('background-music');
-    const clickMessage = document.getElementById('click-to-play');
-    
-    // Configurar volumen
-    music.volume = 0.5;
-    
-    // Intentar reproducir automáticamente al cargar la página
-    window.addEventListener('load', function() {
-        music.play().catch(() => {
-            // Si el navegador bloquea, mostrar mensaje
-            clickMessage.style.display = 'block';
-        });
-    });
-    
-    // Activar con cualquier click en la página
-    document.addEventListener('click', function() {
-        music.play().then(() => {
-            clickMessage.style.display = 'none';
-        });
-    }, { once: true });
-    
-    // Click en el mensaje
-    clickMessage.addEventListener('click', function() {
-        music.play().then(() => {
-            clickMessage.style.display = 'none';
-        });
-    });
-</script>
-    
-</script>
     <div class="background"></div>
     
     <header>
@@ -184,7 +171,7 @@
             <div class="section" id="screen">
                 <div class="section-header">
                     <h2>SCREENSHOTS</h2>
-                    <p>Torneos,VS,ETC</p>
+                    <p>Torneos, VS, ETC</p>
                 </div>
                 <div class="screenshots-grid">
                     <div class="screenshot-item">
@@ -281,6 +268,30 @@
     </footer>
 
     <script>
+        // Sistema de música
+        const music = document.getElementById('background-music');
+        const clickMessage = document.getElementById('click-to-play');
+        
+        music.volume = 0.5;
+        
+        window.addEventListener('load', function() {
+            music.play().catch(() => {
+                clickMessage.style.display = 'block';
+            });
+        });
+        
+        document.addEventListener('click', function() {
+            music.play().then(() => {
+                clickMessage.style.display = 'none';
+            });
+        }, { once: true });
+        
+        clickMessage.addEventListener('click', function() {
+            music.play().then(() => {
+                clickMessage.style.display = 'none';
+            });
+        });
+
         // Sistema de navegación entre secciones
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarItems = document.querySelectorAll('.sidebar-item');
@@ -290,19 +301,12 @@
                 item.addEventListener('click', function() {
                     const targetSection = this.getAttribute('data-section');
                     
-                    // Remover clase active de todas las secciones
                     sections.forEach(section => section.classList.remove('active'));
-                    
-                    // Remover clase active de todos los items del sidebar
                     sidebarItems.forEach(sidebarItem => sidebarItem.classList.remove('active'));
                     
-                    // Agregar clase active a la sección seleccionada
                     document.getElementById(targetSection).classList.add('active');
-                    
-                    // Agregar clase active al item clickeado
                     this.classList.add('active');
                     
-                    // Scroll suave al inicio del contenido
                     document.querySelector('.content').scrollTo({
                         top: 0,
                         behavior: 'smooth'
@@ -313,12 +317,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
