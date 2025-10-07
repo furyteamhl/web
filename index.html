@@ -259,26 +259,66 @@
         
         /* Álbumes de fotos */
         .album-section {
-            margin-bottom: 50px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(65, 105, 225, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
         }
         
         .album-title {
             font-size: 24px;
             color: #4a90e2;
-            margin-bottom: 20px;
+            padding: 20px;
             text-align: center;
             font-weight: bold;
             text-shadow: 0 0 10px rgba(65, 105, 225, 0.5);
+            background: rgba(65, 105, 225, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
+            position: relative;
+        }
+        
+        .album-title:hover {
+            background: rgba(65, 105, 225, 0.2);
+            transform: scale(1.02);
+        }
+        
+        .album-title::after {
+            content: '▼';
+            position: absolute;
+            right: 30px;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .album-title.active::after {
+            transform: rotate(180deg);
         }
         
         .album-grid {
-            display: grid;
+            display: none;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             padding: 20px;
             background: rgba(65, 105, 225, 0.05);
-            border: 2px solid rgba(65, 105, 225, 0.2);
-            border-radius: 15px;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .album-grid.active {
+            display: grid;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .demos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 30px; }
@@ -391,7 +431,7 @@
                 
                 <!-- 1v1 -->
                 <div class="album-section">
-                    <h3 class="album-title">📸 1v1</h3>
+                    <h3 class="album-title" onclick="toggleAlbum(this)">🐺 1v1</h3>
                     <div class="album-grid">
                         <div class="screenshot-item">
                             <img src="UNNAMEDvsPOKER.jpg" alt="UNNAMED vs POKER" onclick="openModal(this.src)">
@@ -420,7 +460,7 @@
                 
                 <!-- Torneo OGHL 3v3 -->
                 <div class="album-section">
-                    <h3 class="album-title">🏆 TORNEO OGHL 3v3</h3>
+                    <h3 class="album-title" onclick="toggleAlbum(this)">👹 TORNEO OGHL 3v3</h3>
                     <div class="album-grid">
                         <div class="screenshot-item">
                             <img src="ywdezaotq4o81.jpg" alt="Clasificación SEMIFINAL" onclick="openModal(this.src)">
@@ -431,7 +471,7 @@
                 
                 <!-- FurY Team & Internacional -->
                 <div class="album-section">
-                    <h3 class="album-title">🌍 FURY TEAM & INTERNACIONAL</h3>
+                    <h3 class="album-title" onclick="toggleAlbum(this)">🌍 FURY TEAM & INTERNACIONAL</h3>
                     <div class="album-grid">
                         <div class="screenshot-item">
                             <img src="2022EE1.JPG" alt="FurY Team" onclick="openModal(this.src)">
@@ -625,6 +665,20 @@
                 closeModal();
             }
         });
+        
+        // Función para expandir/colapsar álbumes
+        function toggleAlbum(titleElement) {
+            const albumGrid = titleElement.nextElementSibling;
+            const isActive = albumGrid.classList.contains('active');
+            
+            if (isActive) {
+                albumGrid.classList.remove('active');
+                titleElement.classList.remove('active');
+            } else {
+                albumGrid.classList.add('active');
+                titleElement.classList.add('active');
+            }
+        }
         
         // Sistema de navegación entre secciones
         document.addEventListener('DOMContentLoaded', function() {
