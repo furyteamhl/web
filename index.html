@@ -68,6 +68,58 @@
     </style>
 </head>
 <body>
+<!-- Botón de música flotante -->
+<button id="music-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; padding: 15px 25px; background: linear-gradient(135deg, rgba(139, 0, 0, 0.9), rgba(70, 0, 0, 0.9)); color: white; border: 2px solid rgba(255,255,255,0.3); border-radius: 50px; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 15px rgba(139, 0, 0, 0.5); transition: all 0.3s;">
+    🎵 Bryant Myers - Killa
+</button>
+
+<!-- Audio -->
+<audio id="background-music" loop volume="0.5">
+    <source src="killa.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Script para controlar la música -->
+<script>
+    const music = document.getElementById('background-music');
+    const toggle = document.getElementById('music-toggle');
+    let isPlaying = false;
+
+    // Estilo hover para el botón
+    toggle.addEventListener('mouseenter', function() {
+        toggle.style.transform = 'scale(1.05)';
+        toggle.style.boxShadow = '0 6px 20px rgba(139, 0, 0, 0.7)';
+    });
+
+    toggle.addEventListener('mouseleave', function() {
+        toggle.style.transform = 'scale(1)';
+        toggle.style.boxShadow = '0 4px 15px rgba(139, 0, 0, 0.5)';
+    });
+
+    // Control de reproducción
+    toggle.addEventListener('click', function() {
+        if (isPlaying) {
+            music.pause();
+            toggle.innerHTML = '🔇 Música OFF';
+            toggle.style.background = 'linear-gradient(135deg, rgba(80, 80, 80, 0.9), rgba(50, 50, 50, 0.9))';
+        } else {
+            music.play();
+            toggle.innerHTML = '🎵 Bryant Myers - Killa';
+            toggle.style.background = 'linear-gradient(135deg, rgba(139, 0, 0, 0.9), rgba(70, 0, 0, 0.9))';
+        }
+        isPlaying = !isPlaying;
+    });
+
+    // Intenta reproducir automáticamente al cargar
+    window.addEventListener('load', function() {
+        music.play().then(() => {
+            isPlaying = true;
+            toggle.innerHTML = '🎵 Bryant Myers - Killa';
+        }).catch(() => {
+            console.log('Haz click en el botón para activar la música');
+            toggle.innerHTML = '▶️ Click para música';
+        });
+    });
+</script>
     <div class="background"></div>
     
     <header>
@@ -264,6 +316,7 @@
     </script>
 </body>
 </html>
+
 
 
 
