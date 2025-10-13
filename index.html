@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FurY Team - Gaming Competitivo</title>
+    <title>FurY Team</title>
     <style>
         * {
             margin: 0;
@@ -24,20 +24,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 100%);
+            background: linear-gradient(135deg, #1a0000 0%, #0a0a0a 100%);
             z-index: -1;
-        }
-
-        .background::before {
-            content: 'FurY';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 300px;
-            font-weight: bold;
-            opacity: 0.03;
-            pointer-events: none;
         }
 
         header {
@@ -55,7 +43,6 @@
             background: linear-gradient(45deg, #fff, #999);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .main-container {
@@ -79,7 +66,6 @@
             transition: all 0.3s;
             border-left: 3px solid transparent;
             font-size: 16px;
-            user-select: none;
         }
 
         .sidebar-item:hover {
@@ -91,18 +77,22 @@
 
         .sidebar-item.active {
             background: rgba(255, 255, 255, 0.1);
-            color: #fff;
             border-left-color: #fff;
+            color: #fff;
         }
 
         .content {
             flex: 1;
             padding: 60px;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         .section {
             display: none;
+            width: 100%;
             animation: fadeIn 0.5s ease-out;
         }
 
@@ -125,30 +115,26 @@
             width: 250px;
             height: 250px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #8b0000, #ff4500);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 40px;
-            box-shadow: 0 10px 50px rgba(139, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
         }
 
-        .logo-container::before {
-            content: 'FurY';
-            font-size: 60px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        .logo-container img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
         }
 
         .presentation {
             text-align: center;
             margin-bottom: 60px;
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .presentation h2 {
@@ -164,6 +150,7 @@
         }
 
         .players-section {
+            width: 100%;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -197,158 +184,166 @@
             transform: translateX(10px);
         }
 
-        .player-item a {
-            color: #fff;
-            text-decoration: none;
-            display: block;
+        .screen-section {
             width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .player-item a:hover {
-            color: #ffa500;
+        .screen-section h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-align: center;
+            letter-spacing: 2px;
         }
 
-        .screenshots-grid {
+        .match-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 30px;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
-        .screenshot-item {
+        .match-card {
             background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
             transition: all 0.3s;
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .screenshot-item:hover {
-            transform: scale(1.02);
-            border-color: rgba(255, 165, 0, 0.5);
-            box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3);
+        .match-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
         }
 
-        .screenshot-item img {
+        .match-card img {
             width: 100%;
             height: auto;
-            object-fit: cover;
             display: block;
         }
 
-        .screenshot-placeholder {
-            color: #666;
-            font-size: 14px;
-            text-align: center;
-            padding: 20px;
+        .info-section {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .demos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+        .info-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .info-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+        }
+
+        .info-content h3 {
+            font-size: 24px;
+            margin: 30px 0 15px;
+            color: #fff;
+        }
+
+        .info-content p {
+            font-size: 16px;
+            color: #bbb;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .demos-section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .demos-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .demo-list {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
         }
 
         .demo-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid #8b0000;
+            border-radius: 5px;
             transition: all 0.3s;
         }
 
         .demo-item:hover {
             background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-5px);
+            transform: translateX(5px);
         }
 
         .demo-item h4 {
-            font-size: 22px;
-            margin-bottom: 15px;
+            font-size: 18px;
+            margin-bottom: 10px;
             color: #fff;
         }
 
         .demo-item p {
-            color: #bbb;
-            margin-bottom: 15px;
-            line-height: 1.6;
+            color: #999;
+            font-size: 14px;
         }
 
-        .demo-video {
-            width: 100%;
-            height: 250px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            margin-bottom: 15px;
-            overflow: hidden;
+        .etc-section {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .demo-video iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        .etc-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 2px;
         }
 
-        .demo-date {
-            font-size: 12px;
-            color: #888;
-            margin-top: 10px;
-        }
-
-        .info-cards {
+        .etc-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        .info-card {
+        .etc-card {
             background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 30px;
+            text-align: center;
             transition: all 0.3s;
         }
 
-        .info-card:hover {
+        .etc-card:hover {
+            transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .info-card h4 {
-            font-size: 24px;
+        .etc-card h3 {
+            font-size: 20px;
             margin-bottom: 15px;
             color: #fff;
         }
 
-        .info-card p {
+        .etc-card p {
             color: #bbb;
-            line-height: 1.6;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-header h2 {
-            font-size: 42px;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, #fff, #999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-header p {
-            font-size: 18px;
-            color: #999;
+            font-size: 14px;
         }
 
         footer {
@@ -385,12 +380,13 @@
                 width: 100%;
                 border-right: none;
                 border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                padding: 20px 0;
                 display: flex;
                 overflow-x: auto;
-                padding: 0;
             }
 
             .sidebar-item {
+                display: inline-block;
                 padding: 15px 25px;
                 white-space: nowrap;
             }
@@ -408,9 +404,7 @@
                 height: 200px;
             }
 
-            .screenshots-grid,
-            .demos-grid,
-            .info-cards {
+            .match-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -418,14 +412,14 @@
 </head>
 <body>
     <div class="background"></div>
-    
+
     <header>
-        <h1>FurY TEAM</h1>
+        <h1>FurY Team</h1>
     </header>
 
     <div class="main-container">
         <aside class="sidebar">
-            <div class="sidebar-item active" data-section="home">Inicio</div>
+            <div class="sidebar-item active" data-section="inicio">Inicio</div>
             <div class="sidebar-item" data-section="screen">Screen</div>
             <div class="sidebar-item" data-section="demos">Demos</div>
             <div class="sidebar-item" data-section="info">Info</div>
@@ -433,10 +427,12 @@
         </aside>
 
         <main class="content">
-            <!-- INICIO -->
-            <div class="section active" id="home">
-                <div class="logo-container"></div>
-
+            <!-- Sección Inicio -->
+            <div class="section active" id="inicio">
+                <div class="logo-container">
+                    <div style="font-size: 80px;">🎮</div>
+                </div>
+                
                 <div class="presentation">
                     <h2>Presentación</h2>
                     <p>Bienvenidos a FurY Team, donde la pasión por el gaming se encuentra con la competencia de alto nivel. Somos un equipo dedicado a llevar nuestras habilidades al máximo y dominar cada desafío que se nos presente.</p>
@@ -444,128 +440,122 @@
 
                 <div class="players-section">
                     <h3>FurY Team - Miembros activos (21)</h3>
-                    <p style="text-align: center; color: #888; margin-bottom: 20px; font-size: 14px;">Última actualización: 19/09/25</p>
                     <div class="players-list">
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561197991377645" target="_blank">🇦🇷 FurY.rtxA (TL) - STEAM_0:1:15552958</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198531016344" target="_blank">🇦🇷 FurY.Beek - STEAM_0:0:570875308</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198928168670" target="_blank">🇦🇷 FurY.Darvulia - STEAM_0:0:483951471</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198182495259" target="_blank">🇦🇷 FurY.Fanatic - STEAM_0:1:111114765</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198446284763" target="_blank">🇦🇷 FurY.Flatron - STEAM_0:1:243009517</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198984841920" target="_blank">🇦🇷 FurY.Goku - STEAM_0:0:524288096</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198003924618" target="_blank">🇦🇷 FurY.LeO - STEAM_0:0:21829445</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561199203532515" target="_blank">🇦🇷 FurY.Ox - STEAM_0:1:621633393</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198308258879" target="_blank">🇦🇷 FurY.Poker - STEAM_0:1:173996575</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561197995557751" target="_blank">🇦🇷 FurY.Pelo - STEAM_0:1:17646011</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198083555733" target="_blank">🇦🇷 FurY.Relax - STEAM_0:1:61645002</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198153985597" target="_blank">🇦🇷 FurY.Washo - STEAM_0:1:96859934</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198140591227" target="_blank">🇦🇷 FurY.Nic0 - STEAM_0:1:90162749</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198028146590" target="_blank">🇦🇷 FurY.Taketa - STEAM_0:0:33940431</a></div>
-                        <div class="player-item">🇦🇷 FurY.Mojito - Por determinar</div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198056638343" target="_blank">🇧🇷 FurY.Hunk - STEAM_0:1:48186307</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561199841097955" target="_blank">🇵🇪 FurY.Raz - STEAM_0:1:940416113</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561199850328321" target="_blank">🇵🇪 FurY.Unnamed - STEAM_0:1:945031296</a></div>
-                        <div class="player-item">🇵🇪 FurY.S1ck - Por determinar</div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561199886082986" target="_blank">🇩🇴 FurYeXecKh4ir - STEAM_76561199886082986</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198148236289" target="_blank">🇧🇷 FurY.Zenon - STEAM_0:1:93985759</a></div>
-                    </div>
-                    
-                    <h3 style="margin-top: 40px;">Inactivos (4)</h3>
-                    <div class="players-list">
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198821062835" target="_blank">🇨🇱 FurY.Cristo - STEAM_0:1:430398553</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561197960422235" target="_blank">🇦🇷 FurY.Shadow - STEAM_0:1:78253</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561199138184033" target="_blank">🇦🇷 FurY.Pandora - STEAM_0:1:588959152</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198806960709" target="_blank">🇨🇦 FurY.Kakarott - STEAM_0:1:423347490</a></div>
+                        <div class="player-item">🇦🇷 FurY.rtxA (TL)</div>
+                        <div class="player-item">🇦🇷 FurY.Pelo</div>
+                        <div class="player-item">🇦🇷 FurY.Poker</div>
+                        <div class="player-item">🇦🇷 FurY.Washo</div>
+                        <div class="player-item">🇦🇷 FurY.Fanatic</div>
+                        <div class="player-item">🇦🇷 FurY.Flatron</div>
+                        <div class="player-item">🇦🇷 FurY.Darvulia</div>
+                        <div class="player-item">🇦🇷 FurY.Goku</div>
+                        <div class="player-item">🇦🇷 FurY.LeO</div>
+                        <div class="player-item">🇦🇷 FurY.Nic0</div>
+                        <div class="player-item">🇦🇷 FurY.Ox</div>
+                        <div class="player-item">🇦🇷 FurY.Relax</div>
+                        <div class="player-item">🇦🇷 FurY.R4n</div>
+                        <div class="player-item">🇦🇷 FurY.Taketa</div>
+                        <div class="player-item">🇦🇷 FurY.Beek</div>
+                        <div class="player-item">🇦🇷 FurY.Mojito</div>
+                        <div class="player-item">🇧🇷 FurY.Hunk</div>
+                        <div class="player-item">🇵🇪 Fury.Rayzen</div>
+                        <div class="player-item">🇵🇪 FurY.S1ck</div>
+                        <div class="player-item">🇵🇪 FurY.Raz</div>
+                        <div class="player-item">🇩🇴 FurY.Kh4irexec</div>
                     </div>
                 </div>
             </div>
 
-            <!-- SCREENSHOTS -->
+            <!-- Sección Screen -->
             <div class="section" id="screen">
-                <div class="section-header">
-                    <h2>SCREENSHOTS</h2>
-                    <p>Los mejores momentos capturados en imagen</p>
-                </div>
-                <div class="screenshots-grid">
-                    <div class="screenshot-item">
-                        <img src="Imagen de WhatsApp 2025-10-13 a las 15.10.15.jpeg" alt="FurY Team Champion - Global HLDM Community Tournament 3v3 Championship">
-                    </div>
-                    <div class="screenshot-item">
-                        <div class="screenshot-placeholder">📸 Screenshot 2</div>
-                    </div>
-                    <div class="screenshot-item">
-                        <div class="screenshot-placeholder">📸 Screenshot 3</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- DEMOS -->
-            <div class="section" id="demos">
-                <div class="section-header">
-                    <h2>DEMOS</h2>
-                    <p>Revive nuestras mejores partidas y jugadas destacadas</p>
-                </div>
-                <div class="demos-grid">
-                    <div class="demo-item">
-                        <div class="demo-video" style="background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; color: #666;">
-                            🎮 Agrega videos de YouTube aquí
+                <div class="screen-section">
+                    <h2>Próximos Partidos - World Cup 2025</h2>
+                    <div class="match-grid">
+                        <div class="match-card">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect fill='%23000' width='800' height='1000'/%3E%3Ctext x='400' y='80' font-family='Arial Black' font-size='40' fill='%23FFA500' text-anchor='middle' font-weight='bold'%3EMONDAY 20 OCTUBER - 05:00 PM GMT%3C/text%3E%3Ctext x='400' y='850' font-family='Arial Black' font-size='48' fill='%23FFA500' text-anchor='middle' font-weight='bold'%3EGROUP K - GROUP STAGE MATCH%3C/text%3E%3Ctext x='250' y='950' font-family='Arial' font-size='32' fill='%23FFA500' text-anchor='middle'%3EHUNK%3C/text%3E%3Ctext x='400' y='980' font-family='Arial Black' font-size='60' fill='%23FFA500' text-anchor='middle'%3EVS%3C/text%3E%3Ctext x='550' y='950' font-family='Arial' font-size='32' fill='%23FFF' text-anchor='middle'%3EMONARCH%3C/text%3E%3Ctext x='400' y='1020' font-family='Arial' font-size='16' fill='%23FFA500' text-anchor='middle'%3EOGRL HALFLIFE%3C/text%3E%3Ctext x='400' y='1040' font-family='Arial' font-size='16' fill='%23FFA500' text-anchor='middle'%3EPLAYER WORLD CUP 2025%3C/text%3E%3C/svg%3E" alt="Match 1">
                         </div>
-                        <h4>Demo de ejemplo</h4>
-                        <p>Para agregar un video de YouTube, reemplaza este contenido con un iframe que apunte a tu video.</p>
-                        <p class="demo-date">Formato: &lt;iframe src="https://youtube.com/embed/VIDEO_ID"&gt;&lt;/iframe&gt;</p>
+                        <div class="match-card">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect fill='%23000' width='800' height='1000'/%3E%3Ctext x='400' y='80' font-family='Arial Black' font-size='40' fill='%23FFA500' text-anchor='middle' font-weight='bold'%3ETUESDAY 21 OCTUBER - 02:00 AM GMT%3C/text%3E%3Ctext x='400' y='850' font-family='Arial Black' font-size='48' fill='%23FFA500' text-anchor='middle' font-weight='bold'%3EGROUP P - GROUP STAGE MATCH%3C/text%3E%3Ctext x='250' y='950' font-family='Arial' font-size='32' fill='%23FFA500' text-anchor='middle'%3EUNNAMED%3C/text%3E%3Ctext x='400' y='980' font-family='Arial Black' font-size='60' fill='%23FFA500' text-anchor='middle'%3EVS%3C/text%3E%3Ctext x='550' y='950' font-family='Arial' font-size='32' fill='%23FFF' text-anchor='middle'%3EPOKER%3C/text%3E%3Ctext x='400' y='1020' font-family='Arial' font-size='16' fill='%23FFA500' text-anchor='middle'%3EOGRL HALFLIFE%3C/text%3E%3Ctext x='400' y='1040' font-family='Arial' font-size='16' fill='%23FFA500' text-anchor='middle'%3EPLAYER WORLD CUP 2025%3C/text%3E%3C/svg%3E" alt="Match 2">
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- INFO -->
+            <!-- Sección Demos -->
+            <div class="section" id="demos">
+                <div class="demos-section">
+                    <h2>Demos Destacadas</h2>
+                    <div class="demo-list">
+                        <div class="demo-item">
+                            <h4>🎯 FurY vs Monarch - World Cup Qualifier</h4>
+                            <p>Fecha: 20 Octubre 2025 | Duración: 45:23</p>
+                        </div>
+                        <div class="demo-item">
+                            <h4>🎯 FurY.Hunk ACE Compilation</h4>
+                            <p>Fecha: 15 Octubre 2025 | Duración: 12:45</p>
+                        </div>
+                        <div class="demo-item">
+                            <h4>🎯 Team Practice Session</h4>
+                            <p>Fecha: 10 Octubre 2025 | Duración: 1:23:12</p>
+                        </div>
+                        <div class="demo-item">
+                            <h4>🎯 FurY.Poker Clutch Moments</h4>
+                            <p>Fecha: 5 Octubre 2025 | Duración: 8:34</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección Info -->
             <div class="section" id="info">
-                <div class="section-header">
-                    <h2>INFORMACIÓN</h2>
-                    <p>Todo lo que necesitas saber sobre FurY Team</p>
-                </div>
+                <div class="info-section">
+                    <h2>Información del Team</h2>
+                    <div class="info-content">
+                        <h3>📋 Sobre Nosotros</h3>
+                        <p>FurY Team es una organización de esports fundada con el objetivo de competir al más alto nivel en Half-Life y otros títulos competitivos. Nuestro roster internacional incluye talento de Argentina, Brasil, Perú y República Dominicana.</p>
 
-                <div class="info-cards">
-                    <div class="info-card">
-                        <h4>🏆 Logros</h4>
-                        <p><strong>Torneos ganados:</strong> 0</p>
-                        <p><strong>Partidas jugadas:</strong> 500+</p>
-                        <p><strong>Win Rate:</strong> 75%</p>
-                        <p><strong>Ranking actual:</strong> Top 7 global AG</p>
-                    </div>
+                        <h3>🏆 Logros Recientes</h3>
+                        <p>Clasificados para la OGRL Half-Life Player World Cup 2025. Participación en múltiples torneos regionales e internacionales con resultados destacados.</p>
 
-                    <div class="info-card">
-                        <h4>📅 Historia</h4>
-                        <p>Fundado en Marzo 2025 por rtxA, junto a Poker, Pelo, Leo, Hunk y Washo. Dedicados a la excelencia en AG y CS2.</p>
-                        <p><strong>Para donaciones:</strong> 3813026158</p>
-                    </div>
+                        <h3>💼 Contacto</h3>
+                        <p>Para consultas de patrocinio, colaboraciones o información general, contacta con nuestro equipo de gestión a través de nuestras redes sociales oficiales.</p>
 
-                    <div class="info-card">
-                        <h4>🎯 Misión</h4>
-                        <p>Llevar el gaming competitivo al siguiente nivel, demostrando dedicación, trabajo en equipo y habilidad excepcional.</p>
-                        <p>Aspiramos a competir internacionalmente.</p>
-                    </div>
-
-                    <div class="info-card">
-                        <h4>⚡ Valores</h4>
-                        <p><strong>Trabajo en equipo:</strong> La comunicación es clave</p>
-                        <p><strong>Dedicación:</strong> Entrenamiento constante</p>
-                        <p><strong>Respeto:</strong> Fair play siempre</p>
-                        <p><strong>Excelencia:</strong> Mejora continua</p>
-                    </div>
-
-                    <div class="info-card">
-                        <h4>🎮 Juegos</h4>
-                        <p>Competimos principalmente en:</p>
-                        <p>• Half Life 1 (AG)</p>
-                        <p>• Counter-Strike 2</p>
+                        <h3>🌐 Redes Sociales</h3>
+                        <p>Síguenos en nuestras plataformas para estar al día con nuestras competiciones, streams y contenido exclusivo del equipo.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- ETC -->
+            <!-- Sección Etc -->
             <div class="section" id="etc">
-                <div class="section-header">
-                    <h2>MÁS SOBRE FURY</h2>
-                    <p>En procedimiento...</p>
+                <div class="etc-section">
+                    <h2>Recursos Adicionales</h2>
+                    <div class="etc-grid">
+                        <div class="etc-card">
+                            <h3>📺 Streams</h3>
+                            <p>Mira nuestras transmisiones en vivo y partidas competitivas</p>
+                        </div>
+                        <div class="etc-card">
+                            <h3>📊 Estadísticas</h3>
+                            <p>Consulta las stats de nuestros jugadores y equipos</p>
+                        </div>
+                        <div class="etc-card">
+                            <h3>📅 Calendario</h3>
+                            <p>Próximos partidos y eventos del equipo</p>
+                        </div>
+                        <div class="etc-card">
+                            <h3>🎮 Entrenamientos</h3>
+                            <p>Horarios de práctica y sesiones de equipo</p>
+                        </div>
+                        <div class="etc-card">
+                            <h3>🏅 Historia</h3>
+                            <p>Descubre la trayectoria de FurY Team</p>
+                        </div>
+                        <div class="etc-card">
+                            <h3>👥 Únete</h3>
+                            <p>Información sobre reclutamiento y pruebas</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -577,26 +567,50 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarItems = document.querySelectorAll('.sidebar-item');
-            const sections = document.querySelectorAll('.section');
-            
-            sidebarItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const targetSection = this.getAttribute('data-section');
-                    
-                    sections.forEach(section => section.classList.remove('active'));
-                    sidebarItems.forEach(sidebarItem => sidebarItem.classList.remove('active'));
-                    
-                    document.getElementById(targetSection).classList.add('active');
-                    this.classList.add('active');
-                    
-                    document.querySelector('.content').scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
+        // Navegación entre secciones
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        const sections = document.querySelectorAll('.section');
+
+        sidebarItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionName = this.getAttribute('data-section');
+                
+                // Remover clase active de todos los items y secciones
+                sidebarItems.forEach(i => i.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+                
+                // Agregar clase active al item clickeado
+                this.classList.add('active');
+                
+                // Mostrar la sección correspondiente
+                const targetSection = document.getElementById(sectionName);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
             });
+        });
+
+        // Animación suave al hacer scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animaciones
+        document.querySelectorAll('.player-item, .demo-item, .etc-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s, transform 0.5s';
+            observer.observe(el);
         });
     </script>
 </body>
