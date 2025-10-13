@@ -3,497 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FurY Team - Equipo Competitivo</title>
+    <title>FurY Team - Gaming Competitivo</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        /* Pantalla de hackeo */
-        #hack-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 999999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            font-family: 'Courier New', monospace;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        #hack-screen.hidden {
-            animation: fadeOut 0.5s forwards;
-        }
-        
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-        
-        .terminal {
-            width: 80%;
-            max-width: 800px;
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 0 50px rgba(0, 255, 0, 0.5);
-        }
-        
-        .terminal-text {
-            color: #00ff00;
-            font-size: 18px;
-            line-height: 1.8;
-            text-shadow: 0 0 10px #00ff00;
-        }
-        
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 20px;
-            background: #00ff00;
-            animation: blink 0.7s infinite;
-            margin-left: 5px;
-        }
-        
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-        
-        .loading-bar {
-            width: 100%;
-            height: 30px;
-            background: rgba(0, 255, 0, 0.1);
-            border: 2px solid #00ff00;
-            border-radius: 15px;
-            margin-top: 30px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .loading-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #00ff00, #00cc00);
-            width: 0%;
-            animation: load 3s ease-in-out forwards;
-            box-shadow: 0 0 20px #00ff00;
-        }
-        
-        @keyframes load {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-        
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; }
-        .background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a0a; z-index: -1; }
-        .background::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url(NWT25O3.png); background-size: 40%; background-position: center; background-repeat: no-repeat; opacity: 0.08; filter: blur(2px); }
-        
-        header { background: linear-gradient(135deg, rgba(10, 10, 30, 0.95), rgba(0, 0, 0, 0.95)); backdrop-filter: blur(10px); padding: 35px; text-align: center; border-bottom: 1px solid rgba(65, 105, 225, 0.4); position: relative; box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); }
-        
-        header h1 { 
-            font-size: 58px; 
-            letter-spacing: 10px; 
-            text-transform: uppercase; 
-            background: linear-gradient(to right, #e0e0e0, #4a90e2, #2c5aa0, #4a90e2, #e0e0e0);
-            background-size: 200% auto;
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            z-index: 2;
-            font-weight: 800;
-            animation: shine 4s linear infinite;
-            filter: drop-shadow(0 2px 8px rgba(65, 105, 225, 0.4));
-        }
-        
-        header h1::before {
-            content: '';
-            position: absolute;
-            left: -100px;
-            top: 50%;
-            transform: translateY(-50%) rotate(-25deg);
-            width: 80px;
-            height: 100px;
-            background: linear-gradient(135deg, rgba(65, 105, 225, 0.2), rgba(30, 144, 255, 0.3));
-            clip-path: polygon(20% 0%, 40% 0%, 45% 100%, 35% 100%, 30% 40%, 0% 40%);
-            filter: drop-shadow(0 0 10px rgba(65, 105, 225, 0.5));
-            z-index: 0;
-        }
-        
-        header h1::after {
-            content: '';
-            position: absolute;
-            right: -100px;
-            top: 50%;
-            transform: translateY(-50%) rotate(25deg) scaleX(-1);
-            width: 80px;
-            height: 100px;
-            background: linear-gradient(135deg, rgba(65, 105, 225, 0.2), rgba(30, 144, 255, 0.3));
-            clip-path: polygon(20% 0%, 40% 0%, 45% 100%, 35% 100%, 30% 40%, 0% 40%);
-            filter: drop-shadow(0 0 10px rgba(65, 105, 225, 0.5));
-            z-index: 0;
-        }
-        
-        @keyframes shine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-        .main-container { display: flex; min-height: calc(100vh - 200px); }
-        .sidebar { width: 250px; background: linear-gradient(135deg, rgba(139, 0, 0, 0.4), rgba(0, 0, 0, 0.7)); backdrop-filter: blur(10px); border-right: 2px solid rgba(255, 255, 255, 0.1); padding: 30px 0; box-shadow: 0 0 30px rgba(139, 0, 0, 0.3); }
-        .sidebar-item { padding: 20px 30px; color: #ccc; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent; font-size: 16px; user-select: none; }
-        .sidebar-item:hover { background: rgba(255, 255, 255, 0.05); color: #fff; border-left-color: #fff; padding-left: 40px; }
-        .sidebar-item.active { background: rgba(255, 255, 255, 0.1); color: #fff; border-left-color: #fff; }
-        .content { flex: 1; padding: 60px; overflow-y: auto; }
-        .section { display: none; animation: fadeIn 0.5s ease-out; }
-        .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .logo-container { 
-            width: 250px; 
-            height: 250px; 
-            border-radius: 50%; 
-            background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(10px); 
-            border: 3px solid rgba(255, 255, 255, 0.2); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            margin: 60px auto 40px; 
-            box-shadow: 0 10px 50px rgba(139, 0, 0, 0.5); 
-            overflow: hidden; 
-            padding: 20px;
-            position: relative;
-        }
-        
-        .logo-container::before {
-            content: '';
-            position: absolute;
-            width: 120%;
-            height: 120%;
-            background: linear-gradient(45deg, transparent 40%, rgba(65, 105, 225, 0.1) 50%, transparent 60%);
-            animation: logoShine 3s linear infinite;
-        }
-        
-        @keyframes logoShine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-        .logo-container img { width: 100%; height: 100%; object-fit: contain; }
-        .presentation { text-align: center; margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .presentation h2 { font-size: 36px; margin-bottom: 20px; letter-spacing: 2px; }
-        .presentation p { font-size: 18px; color: #bbb; line-height: 1.8; }
-        .players-section { max-width: 600px; margin: 0 auto; }
-        .players-section h3 { font-size: 28px; margin-bottom: 20px; text-align: center; letter-spacing: 2px; }
-        .players-list { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 30px; }
-        .player-item { padding: 15px 20px; margin: 10px 0; background: rgba(255, 255, 255, 0.03); border-left: 3px solid #fff; border-radius: 5px; transition: all 0.3s; }
-        .player-item:hover { background: rgba(255, 255, 255, 0.08); transform: translateX(10px); }
-        .player-item a { color: #fff; text-decoration: none; display: block; width: 100%; }
-        .player-item a:hover { color: #ffa500; }
-        .screenshots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 30px; justify-items: center; }
-        .screenshot-item { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; transition: all 0.3s; width: 100%; max-width: 600px; }
-        .screenshot-item:hover { transform: scale(1.02); border-color: rgba(255, 165, 0, 0.5); box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3); }
-        .screenshot-item img { width: 100%; height: auto; object-fit: contain; display: block; cursor: pointer; }
-        
-        /* Modal para ampliar imágenes */
-        .image-modal {
-            display: none;
-            position: fixed;
-            z-index: 99999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .image-modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 30px;
-            right: 50px;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
             color: #fff;
-            font-size: 50px;
+            min-height: 100vh;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 100%);
+            z-index: -1;
+        }
+
+        .background::before {
+            content: 'FurY';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 300px;
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 999999;
+            opacity: 0.03;
+            pointer-events: none;
         }
-        
-        .close-modal:hover {
-            color: #ff0000;
-            transform: scale(1.2);
-        }
-        
-        .screenshot-caption {
-            text-align: center;
-            padding: 10px;
-            color: #00ff00;
-            font-size: 14px;
-            margin-top: 10px;
-            text-shadow: 0 0 10px #00ff00;
-            font-weight: bold;
-        }
-        
-        .player-highlight {
-            color: #00ff00;
-            font-weight: bold;
-            text-shadow: 0 0 10px #00ff00;
-        }
-        
-        /* Álbumes de fotos - Diseño premium */
-        .album-section {
-            margin-bottom: 40px;
-            border-radius: 20px;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(65, 105, 225, 0.05));
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(65, 105, 225, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 60px rgba(65, 105, 225, 0.2);
-            transition: all 0.4s ease;
-            position: relative;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .album-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s;
+
+        header h1 {
+            font-size: 48px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .album-section:hover::before {
-            left: 100%;
+
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 200px);
         }
-        
-        .album-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 80px rgba(65, 105, 225, 0.4);
-            border-color: rgba(65, 105, 225, 0.6);
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+            backdrop-filter: blur(10px);
+            border-right: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 0;
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.3);
         }
-        
-        .album-title {
-            font-size: 28px;
-            color: #fff;
-            padding: 25px 30px;
-            text-align: left;
-            font-weight: 900;
-            background: linear-gradient(135deg, rgba(65, 105, 225, 0.3), rgba(30, 144, 255, 0.2));
+
+        .sidebar-item {
+            padding: 20px 30px;
+            color: #ccc;
             cursor: pointer;
             transition: all 0.3s;
+            border-left: 3px solid transparent;
+            font-size: 16px;
             user-select: none;
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            letter-spacing: 2px;
         }
-        
-        .album-title::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(90deg, #4a90e2, #00ff00);
-            transition: width 0.4s ease;
-        }
-        
-        .album-title:hover::before {
-            width: 100%;
-        }
-        
-        .album-title:hover {
-            background: linear-gradient(135deg, rgba(65, 105, 225, 0.5), rgba(30, 144, 255, 0.3));
+
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-left-color: #fff;
             padding-left: 40px;
         }
-        
-        .album-title::after {
-            content: '⟩';
-            position: absolute;
-            right: 30px;
-            font-size: 32px;
-            transition: transform 0.4s ease;
-            color: #4a90e2;
-            font-weight: bold;
+
+        .sidebar-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-left-color: #fff;
         }
-        
-        .album-title.active::after {
-            transform: rotate(90deg);
-            color: #00ff00;
+
+        .content {
+            flex: 1;
+            padding: 60px;
+            overflow-y: auto;
         }
-        
-        .album-grid {
+
+        .section {
             display: none;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.2);
-            animation: slideDown 0.5s ease-out;
-            position: relative;
+            animation: fadeIn 0.5s ease-out;
         }
-        
-        .album-grid::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #4a90e2, #00ff00, transparent);
-            box-shadow: 0 0 20px rgba(65, 105, 225, 0.8);
+
+        .section.active {
+            display: block;
         }
-        
-        .album-grid.active {
-            display: grid;
-        }
-        
-        @keyframes slideDown {
+
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
-        /* Mejoras en screenshot items */
-        .screenshot-item {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-            border: 1px solid rgba(65, 105, 225, 0.2);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 100%;
-            max-width: 600px;
-            position: relative;
-            backdrop-filter: blur(5px);
-        }
-        
-        .screenshot-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(65, 105, 225, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s;
-        }
-        
-        .screenshot-item:hover::before {
-            left: 100%;
-        }
-        
-        .screenshot-item:hover {
-            transform: translateY(-10px) scale(1.03);
-            border-color: rgba(0, 255, 0, 0.5);
-            box-shadow: 0 15px 40px rgba(0, 255, 0, 0.3), 0 0 60px rgba(65, 105, 225, 0.4);
-        }
-        
-        .screenshot-item img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            display: block;
-            cursor: pointer;
-            transition: transform 0.4s;
-        }
-        
-        .screenshot-item:hover img {
-            transform: scale(1.05);
-        }
-        
-        /* Botón de música flotante */
-        .music-control {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #4a90e2, #2c5aa0);
-            border: 3px solid rgba(65, 105, 225, 0.5);
+
+        .logo-container {
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
+            background: linear-gradient(135deg, #8b0000, #ff4500);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            z-index: 9999;
-            box-shadow: 0 5px 25px rgba(65, 105, 225, 0.6);
+            margin: 0 auto 40px;
+            box-shadow: 0 10px 50px rgba(139, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-container::before {
+            content: 'FurY';
+            font-size: 60px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .presentation {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .presentation h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .presentation p {
+            font-size: 18px;
+            color: #bbb;
+            line-height: 1.8;
+        }
+
+        .players-section {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .players-section h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .players-list {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .player-item {
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid #fff;
+            border-radius: 5px;
             transition: all 0.3s;
+        }
+
+        .player-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(10px);
+        }
+
+        .player-item a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+        }
+
+        .player-item a:hover {
+            color: #ffa500;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .screenshot-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screenshot-item:hover {
+            transform: scale(1.02);
+            border-color: rgba(255, 165, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+
+        .screenshot-placeholder {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .demos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .demo-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .demo-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .demo-item h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .demo-item p {
+            color: #bbb;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .demo-video {
+            width: 100%;
+            height: 250px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .demo-video iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .demo-date {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .info-card h4 {
             font-size: 24px;
+            margin-bottom: 15px;
+            color: #fff;
         }
-        
-        .music-control:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 35px rgba(65, 105, 225, 0.8);
+
+        .info-card p {
+            color: #bbb;
+            line-height: 1.6;
         }
-        
-        .music-control.playing {
-            animation: pulse 2s infinite;
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
-        
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 5px 25px rgba(65, 105, 225, 0.6);
-            }
-            50% {
-                box-shadow: 0 5px 35px rgba(65, 105, 225, 1);
-            }
+
+        .section-header h2 {
+            font-size: 42px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .demos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 30px; }
-        .demo-item { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 25px; transition: all 0.3s; }
-        .demo-item:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-5px); }
-        .demo-item h4 { font-size: 22px; margin-bottom: 15px; color: #fff; }
-        .demo-item p { color: #bbb; margin-bottom: 15px; line-height: 1.6; }
-        .demo-video { width: 100%; height: 250px; background: rgba(0, 0, 0, 0.5); border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
-        .demo-video iframe { width: 100%; height: 100%; border: none; }
-        .demo-date { font-size: 12px; color: #888; margin-top: 10px; }
-        .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
-        .info-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 30px; transition: all 0.3s; }
-        .info-card:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.3); }
-        .info-card h4 { font-size: 24px; margin-bottom: 15px; color: #fff; }
-        .info-card p { color: #bbb; line-height: 1.6; }
-        .section-header { text-align: center; margin-bottom: 40px; }
-        .section-header h2 { font-size: 42px; letter-spacing: 3px; margin-bottom: 15px; background: linear-gradient(45deg, #fff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .section-header p { font-size: 18px; color: #999; }
-        footer { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); padding: 30px; text-align: center; border-top: 2px solid rgba(255, 255, 255, 0.1); margin-top: auto; }
-        footer p { color: #999; margin: 5px 0; }
-        footer a { color: #fff; text-decoration: none; transition: all 0.3s; }
-        footer a:hover { color: #ccc; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+
+        .section-header p {
+            font-size: 18px;
+            color: #999;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            text-align: center;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        footer p {
+            color: #999;
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        footer a:hover {
+            color: #ccc;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
         @media (max-width: 968px) {
-            .main-container { flex-direction: column; }
-            .sidebar { width: 100%; border-right: none; border-bottom: 2px solid rgba(255, 255, 255, 0.1); display: flex; overflow-x: auto; padding: 0; }
-            .sidebar-item { padding: 15px 25px; white-space: nowrap; }
-            .content { padding: 30px 20px; }
-            header h1 { font-size: 32px; }
-            .logo-container { width: 200px; height: 200px; }
-            .screenshots-grid, .demos-grid, .info-cards { grid-template-columns: 1fr; }
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                display: flex;
+                overflow-x: auto;
+                padding: 0;
+            }
+
+            .sidebar-item {
+                padding: 15px 25px;
+                white-space: nowrap;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            header h1 {
+                font-size: 32px;
+            }
+
+            .logo-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .screenshots-grid,
+            .demos-grid,
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -501,7 +420,7 @@
     <div class="background"></div>
     
     <header>
-        <h1>FurY Team</h1>
+        <h1>FurY TEAM</h1>
     </header>
 
     <div class="main-container">
@@ -514,11 +433,9 @@
         </aside>
 
         <main class="content">
-            <!-- HOME SECTION -->
+            <!-- INICIO -->
             <div class="section active" id="home">
-                <div class="logo-container">
-                    <img src="ScLeKrV.png" alt="FurY Team Logo">
-                </div>
+                <div class="logo-container"></div>
 
                 <div class="presentation">
                     <h2>Presentación</h2>
@@ -529,7 +446,7 @@
                     <h3>FurY Team - Miembros activos (21)</h3>
                     <p style="text-align: center; color: #888; margin-bottom: 20px; font-size: 14px;">Última actualización: 19/09/25</p>
                     <div class="players-list">
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198072216199" target="_blank">🇦🇷 FurY.rtxA (TL) - STEAM_0:1:55975235</a></div>
+                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561197991377645" target="_blank">🇦🇷 FurY.rtxA (TL) - STEAM_0:1:15552958</a></div>
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198531016344" target="_blank">🇦🇷 FurY.Beek - STEAM_0:0:570875308</a></div>
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198928168670" target="_blank">🇦🇷 FurY.Darvulia - STEAM_0:0:483951471</a></div>
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198182495259" target="_blank">🇦🇷 FurY.Fanatic - STEAM_0:1:111114765</a></div>
@@ -545,11 +462,11 @@
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198028146590" target="_blank">🇦🇷 FurY.Taketa - STEAM_0:0:33940431</a></div>
                         <div class="player-item">🇦🇷 FurY.Mojito - Por determinar</div>
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198056638343" target="_blank">🇧🇷 FurY.Hunk - STEAM_0:1:48186307</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198148236247" target="_blank">🇧🇷 FurY.Zenon - STEAM_0:1:93985759</a></div>
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561199841097955" target="_blank">🇵🇪 FurY.Raz - STEAM_0:1:940416113</a></div>
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561199850328321" target="_blank">🇵🇪 FurY.Unnamed - STEAM_0:1:945031296</a></div>
-                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198979787299" target="_blank">🇵🇪 FurY.S1ck - STEAM_0:1:509760785</a></div>
+                        <div class="player-item">🇵🇪 FurY.S1ck - Por determinar</div>
                         <div class="player-item"><a href="https://steamcommunity.com/profiles/76561199886082986" target="_blank">🇩🇴 FurYeXecKh4ir - STEAM_76561199886082986</a></div>
+                        <div class="player-item"><a href="https://steamcommunity.com/profiles/76561198148236289" target="_blank">🇧🇷 FurY.Zenon - STEAM_0:1:93985759</a></div>
                     </div>
                     
                     <h3 style="margin-top: 40px;">Inactivos (4)</h3>
@@ -562,103 +479,44 @@
                 </div>
             </div>
 
-            <!-- SCREENSHOTS SECTION -->
+            <!-- SCREENSHOTS -->
             <div class="section" id="screen">
                 <div class="section-header">
                     <h2>SCREENSHOTS</h2>
-                    <p>Torneos, VS, ETC</p>
+                    <p>Los mejores momentos capturados en imagen</p>
                 </div>
-                
-                <!-- Modal para ampliar imágenes -->
-                <div id="imageModal" class="image-modal" onclick="closeModal()">
-                    <span class="close-modal">&times;</span>
-                    <img class="modal-content" id="modalImage">
-                </div>
-                
-                <!-- 1v1 -->
-                <div class="album-section">
-                    <h3 class="album-title" onclick="toggleAlbum(this)">🐺 1v1</h3>
-                    <div class="album-grid">
-                        <div class="screenshot-item">
-                            <img src="UNNAMEDvsPOKER.jpg" alt="UNNAMED vs POKER" onclick="openModal(this.src)">
-                            <div class="screenshot-caption">
-                                <span class="player-highlight">UNNAMED</span> vs <span class="player-highlight">POKER</span>
-                            </div>
-                        </div>
-                        <div class="screenshot-item">
-                            <img src="HUNKVSMONARCH.jpg" alt="HUNK vs MONARCH" onclick="openModal(this.src)">
-                            <div class="screenshot-caption">
-                                <span class="player-highlight">HUNK</span> vs MONARCH
-                            </div>
-                        </div>
-                        <div class="screenshot-item">
-                            <img src="WhatsApp Image 2025-10-03 at 10.38.26 AM.jpeg" alt="Torneo WhatsApp" onclick="openModal(this.src)">
-                            <div class="screenshot-caption">Torneo WhatsApp</div>
-                        </div>
-                        <div class="screenshot-item">
-                            <img src="image.png" alt="FurY Team Players" onclick="openModal(this.src)" onerror="this.src='imagen.png'">
-                            <div class="screenshot-caption">
-                                <span class="player-highlight">POKER</span> - <span class="player-highlight">RTXA</span> - <span class="player-highlight">PELO</span>
-                            </div>
-                        </div>
+                <div class="screenshots-grid">
+                    <div class="screenshot-item">
+                        <img src="Imagen de WhatsApp 2025-10-13 a las 15.10.15.jpeg" alt="FurY Team Champion - Global HLDM Community Tournament 3v3 Championship">
                     </div>
-                </div>
-                
-                <!-- Torneo OGHL 3v3 -->
-                <div class="album-section">
-                    <h3 class="album-title" onclick="toggleAlbum(this)">👹 TORNEO OGHL 3v3</h3>
-                    <div class="album-grid">
-                        <div class="screenshot-item">
-                            <img src="ywdezaotq4o81.jpg" alt="Clasificación SEMIFINAL" onclick="openModal(this.src)">
-                            <div class="screenshot-caption">Clasificación a la SEMIFINAL torneo 3v3 OGHL</div>
-                        </div>
+                    <div class="screenshot-item">
+                        <div class="screenshot-placeholder">📸 Screenshot 2</div>
                     </div>
-                </div>
-                
-                <!-- FurY Team & Internacional -->
-                <div class="album-section">
-                    <h3 class="album-title" onclick="toggleAlbum(this)">🌍 FURY TEAM & INTERNACIONAL</h3>
-                    <div class="album-grid">
-                        <div class="screenshot-item">
-                            <img src="2022EE1.JPG" alt="FurY Team" onclick="openModal(this.src)">
-                            <div class="screenshot-caption">FurY Team</div>
-                        </div>
-                        <div class="screenshot-item">
-                            <img src="2080E01.JPG" alt="FurY Team" onclick="openModal(this.src)">
-                            <div class="screenshot-caption">FurY Team</div>
-                        </div>
-                        <div class="screenshot-item">
-                            <img src="20A3E71.JPG" alt="FurY Team" onclick="openModal(this.src)">
-                            <div class="screenshot-caption">FurY Team</div>
-                        </div>
-                        <div class="screenshot-item">
-                            <img src="2073171.JPG" alt="Amistoso contra Rusia" onclick="openModal(this.src)">
-                            <div class="screenshot-caption">Amistoso contra Rusia 🇷🇺</div>
-                        </div>
+                    <div class="screenshot-item">
+                        <div class="screenshot-placeholder">📸 Screenshot 3</div>
                     </div>
                 </div>
             </div>
 
-            <!-- DEMOS SECTION -->
+            <!-- DEMOS -->
             <div class="section" id="demos">
                 <div class="section-header">
                     <h2>DEMOS</h2>
                     <p>Revive nuestras mejores partidas y jugadas destacadas</p>
                 </div>
                 <div class="demos-grid">
-                    <!-- Demo 1 -->
                     <div class="demo-item">
-                        <div class="demo-video">
-                            <iframe src="https://www.youtube.com/embed/ff9gVcPod-E" allowfullscreen></iframe>
+                        <div class="demo-video" style="background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; color: #666;">
+                            🎮 Agrega videos de YouTube aquí
                         </div>
-                        <h4>Torneo OGHL 3v3 GLOBAL MAJOR</h4>
-                        <p>FURY VS SUNAT - SEMIFINAL</p>
-                        <p class="demo-date">Partida épica de semifinales</p>
+                        <h4>Demo de ejemplo</h4>
+                        <p>Para agregar un video de YouTube, reemplaza este contenido con un iframe que apunte a tu video.</p>
+                        <p class="demo-date">Formato: &lt;iframe src="https://youtube.com/embed/VIDEO_ID"&gt;&lt;/iframe&gt;</p>
                     </div>
                 </div>
             </div>
 
-            <!-- INFO SECTION -->
+            <!-- INFO -->
             <div class="section" id="info">
                 <div class="section-header">
                     <h2>INFORMACIÓN</h2>
@@ -676,13 +534,13 @@
 
                     <div class="info-card">
                         <h4>📅 Historia</h4>
-                        <p>Fundado en Marzo 2025, Fundado por el apasionado a la informática, dando aportes constantes a la comunidad de AG, RTXA. Y secuaces, Poker, Pelo, Leo, Hunk y Washo.</p>
+                        <p>Fundado en Marzo 2025 por rtxA, junto a Poker, Pelo, Leo, Hunk y Washo. Dedicados a la excelencia en AG y CS2.</p>
                         <p><strong>Para donaciones:</strong> 3813026158</p>
                     </div>
 
                     <div class="info-card">
                         <h4>🎯 Misión</h4>
-                        <p>Nuestra misión es llevar el gaming competitivo al siguiente nivel, demostrando dedicación, trabajo en equipo y habilidad excepcional.</p>
+                        <p>Llevar el gaming competitivo al siguiente nivel, demostrando dedicación, trabajo en equipo y habilidad excepcional.</p>
                         <p>Aspiramos a competir internacionalmente.</p>
                     </div>
 
@@ -691,7 +549,7 @@
                         <p><strong>Trabajo en equipo:</strong> La comunicación es clave</p>
                         <p><strong>Dedicación:</strong> Entrenamiento constante</p>
                         <p><strong>Respeto:</strong> Fair play siempre</p>
-                        <p><strong>Excelencia:</strong> Buscar la mejora continua</p>
+                        <p><strong>Excelencia:</strong> Mejora continua</p>
                     </div>
 
                     <div class="info-card">
@@ -703,37 +561,11 @@
                 </div>
             </div>
 
-            <!-- ETC SECTION -->
+            <!-- ETC -->
             <div class="section" id="etc">
                 <div class="section-header">
                     <h2>MÁS SOBRE FURY</h2>
-                    <p>Equipamiento y más</p>
-                </div>
-                
-                <div class="screenshots-grid">
-                    <div class="screenshot-item">
-                        <img src="setup.FurY.jpeg" alt="Setup FurY" onclick="openModal(this.src)">
-                        <div class="screenshot-caption">SETUP FURY</div>
-                    </div>
-                </div>
-                
-                <div class="info-cards" style="margin-top: 50px;">
-                    <div class="info-card" style="grid-column: 1 / -1; text-align: center; background: rgba(65, 105, 225, 0.1); border: 2px solid rgba(65, 105, 225, 0.3);">
-                        <h4 style="color: #4a90e2; margin-bottom: 20px;">💻 Desarrollo del Sitio Web</h4>
-                        <p style="font-size: 16px; line-height: 1.8; color: #ccc;">
-                            Este sitio web fue programado en colaboración de los integrantes FurY, así que todos los derechos están reservados a los integrantes.
-                        </p>
-                        <p style="font-size: 16px; line-height: 1.8; color: #ccc; margin-top: 15px;">
-                            <strong style="color: #4a90e2;">Frontend/Backend:</strong> Gabriel (<strong style="color: #00ff00; text-shadow: 0 0 5px #00ff00;">FurY-Kh4ir</strong>)
-                        </p>
-                        <p style="font-size: 15px; line-height: 1.8; color: #aaa; margin-top: 10px;">
-                            <strong style="color: #4a90e2;">💰 PayPal del desarrollador para donaciones:</strong> 
-                            <a href="mailto:pr8598575@gmail.com" style="color: #00ff00; text-shadow: 0 0 5px #00ff00; text-decoration: none; font-weight: bold;">pr8598575@gmail.com</a>
-                        </p>
-                        <p style="font-size: 16px; line-height: 1.8; color: #ccc; margin-top: 15px;">
-                            Todos los integrantes del team pusieron cada uno, ideas para así tener el estilo tan único de esta página y profesional.
-                        </p>
-                    </div>
+                    <p>En procedimiento...</p>
                 </div>
             </div>
         </main>
@@ -745,129 +577,6 @@
     </footer>
 
     <script>
-        // Control de música
-        let backgroundMusic;
-        let musicControl;
-        let isPlaying = false;
-        
-        function toggleMusic() {
-            if (!backgroundMusic) return;
-            
-            if (isPlaying) {
-                backgroundMusic.pause();
-                musicControl.textContent = '🔇';
-                musicControl.classList.remove('playing');
-                isPlaying = false;
-            } else {
-                backgroundMusic.play();
-                musicControl.textContent = '🎵';
-                musicControl.classList.add('playing');
-                isPlaying = true;
-            }
-        }
-        
-        // Inicializar música cuando cargue el DOM
-        document.addEventListener('DOMContentLoaded', function() {
-            backgroundMusic = document.getElementById('backgroundMusic');
-            musicControl = document.getElementById('musicControl');
-            
-            if (backgroundMusic) {
-                backgroundMusic.volume = 0.3; // 30% de volumen
-                
-                // Intentar reproducir automáticamente después del hackeo
-                setTimeout(() => {
-                    backgroundMusic.play().then(() => {
-                        isPlaying = true;
-                        musicControl.classList.add('playing');
-                    }).catch(() => {
-                        console.log('Click en el botón para activar la música');
-                    });
-                }, 4000);
-            }
-        });
-        
-        // Efecto de hackeo al cargar
-        const hackMessages = [
-            '> Iniciando conexión segura...',
-            '> Accediendo al servidor FurY Team...',
-            '> Verificando credenciales...',
-            '> [OK] Autenticación exitosa',
-            '> Cargando base de datos...',
-            '> Descifrando información...',
-            '> [OK] Acceso concedido',
-            '> Bienvenido a FurY Team ⚡'
-        ];
-        
-        let messageIndex = 0;
-        const hackText = document.getElementById('hack-text');
-        const hackScreen = document.getElementById('hack-screen');
-        
-        function typeMessage() {
-            if (messageIndex < hackMessages.length) {
-                const message = hackMessages[messageIndex];
-                let charIndex = 0;
-                const line = document.createElement('div');
-                hackText.appendChild(line);
-                
-                const typeChar = setInterval(() => {
-                    if (charIndex < message.length) {
-                        line.textContent += message[charIndex];
-                        charIndex++;
-                    } else {
-                        clearInterval(typeChar);
-                        messageIndex++;
-                        setTimeout(typeMessage, 200);
-                    }
-                }, 30);
-            } else {
-                setTimeout(() => {
-                    hackScreen.classList.add('hidden');
-                    setTimeout(() => {
-                        hackScreen.style.display = 'none';
-                    }, 500);
-                }, 1000);
-            }
-        }
-        
-        window.addEventListener('load', () => {
-            setTimeout(typeMessage, 500);
-        });
-        
-        // Funciones para ampliar imágenes
-        function openModal(imageSrc) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            modal.classList.add('active');
-            modalImg.src = imageSrc;
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('active');
-        }
-        
-        // Cerrar modal con tecla ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-        
-        // Función para expandir/colapsar álbumes
-        function toggleAlbum(titleElement) {
-            const albumGrid = titleElement.nextElementSibling;
-            const isActive = albumGrid.classList.contains('active');
-            
-            if (isActive) {
-                albumGrid.classList.remove('active');
-                titleElement.classList.remove('active');
-            } else {
-                albumGrid.classList.add('active');
-                titleElement.classList.add('active');
-            }
-        }
-        
-        // Sistema de navegación entre secciones
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarItems = document.querySelectorAll('.sidebar-item');
             const sections = document.querySelectorAll('.section');
