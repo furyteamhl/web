@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FurY Team</title>
+    <title>Screen - FurY Team</title>
     <style>
         * {
             margin: 0;
@@ -24,7 +24,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1a0000 0%, #0a0a0a 100%);
+            background-image: url('https://i.imgur.com/placeholder.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
             z-index: -1;
         }
 
@@ -60,8 +63,10 @@
         }
 
         .sidebar-item {
+            display: block;
             padding: 20px 30px;
             color: #ccc;
+            text-decoration: none;
             cursor: pointer;
             transition: all 0.3s;
             border-left: 3px solid transparent;
@@ -78,271 +83,62 @@
         .sidebar-item.active {
             background: rgba(255, 255, 255, 0.1);
             border-left-color: #fff;
-            color: #fff;
         }
 
         .content {
             flex: 1;
             padding: 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
         }
 
-        .section {
-            display: none;
-            width: 100%;
-            animation: fadeIn 0.5s ease-out;
+        .page-title {
+            font-size: 42px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-align: center;
         }
 
-        .section.active {
-            display: block;
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo-container {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.8);
+        .screenshot-card {
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 3px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: 200px;
+            background: rgba(139, 0, 0, 0.2);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 40px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .logo-container img {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
-        }
-
-        .presentation {
-            text-align: center;
-            margin-bottom: 60px;
-            max-width: 800px;
-        }
-
-        .presentation h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .presentation p {
-            font-size: 18px;
-            color: #bbb;
-            line-height: 1.8;
-        }
-
-        .players-section {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .players-section h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            text-align: center;
-            letter-spacing: 2px;
-        }
-
-        .players-list {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 30px;
-        }
-
-        .player-item {
-            padding: 15px 20px;
-            margin: 10px 0;
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid #fff;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-
-        .player-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateX(10px);
-        }
-
-        .screen-section {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .screen-section h2 {
-            font-size: 36px;
-            margin-bottom: 40px;
-            text-align: center;
-            letter-spacing: 2px;
-        }
-
-        .match-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .match-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .match-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-        }
-
-        .match-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .info-section {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .info-section h2 {
-            font-size: 36px;
-            margin-bottom: 30px;
-            text-align: center;
-            letter-spacing: 2px;
-        }
-
-        .info-content {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 40px;
-        }
-
-        .info-content h3 {
-            font-size: 24px;
-            margin: 30px 0 15px;
-            color: #fff;
-        }
-
-        .info-content p {
-            font-size: 16px;
-            color: #bbb;
-            line-height: 1.8;
             margin-bottom: 15px;
+            font-size: 48px;
         }
 
-        .demos-section {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .demos-section h2 {
-            font-size: 36px;
-            margin-bottom: 30px;
-            text-align: center;
-            letter-spacing: 2px;
-        }
-
-        .demo-list {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 30px;
-        }
-
-        .demo-item {
-            padding: 20px;
-            margin: 15px 0;
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid #8b0000;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-
-        .demo-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateX(5px);
-        }
-
-        .demo-item h4 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .demo-item p {
-            color: #999;
-            font-size: 14px;
-        }
-
-        .etc-section {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .etc-section h2 {
-            font-size: 36px;
-            margin-bottom: 30px;
-            text-align: center;
-            letter-spacing: 2px;
-        }
-
-        .etc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .etc-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .etc-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .etc-card h3 {
+        .screenshot-title {
             font-size: 20px;
-            margin-bottom: 15px;
-            color: #fff;
+            margin-bottom: 10px;
         }
 
-        .etc-card p {
-            color: #bbb;
+        .screenshot-date {
+            color: #999;
             font-size: 14px;
         }
 
@@ -380,15 +176,11 @@
                 width: 100%;
                 border-right: none;
                 border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-                padding: 20px 0;
-                display: flex;
-                overflow-x: auto;
             }
 
             .sidebar-item {
                 display: inline-block;
                 padding: 15px 25px;
-                white-space: nowrap;
             }
 
             .content {
@@ -397,15 +189,6 @@
 
             header h1 {
                 font-size: 32px;
-            }
-
-            .logo-container {
-                width: 200px;
-                height: 200px;
-            }
-
-            .match-grid {
-                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -419,143 +202,51 @@
 
     <div class="main-container">
         <aside class="sidebar">
-            <div class="sidebar-item active" data-section="inicio">Inicio</div>
-            <div class="sidebar-item" data-section="screen">Screen</div>
-            <div class="sidebar-item" data-section="demos">Demos</div>
-            <div class="sidebar-item" data-section="info">Info</div>
-            <div class="sidebar-item" data-section="etc">Etc</div>
+            <a href="index.html" class="sidebar-item">Inicio</a>
+            <a href="screen.html" class="sidebar-item active">Screen</a>
+            <a href="demos.html" class="sidebar-item">Demos</a>
+            <a href="info.html" class="sidebar-item">Info</a>
+            <a href="etc.html" class="sidebar-item">Etc</a>
         </aside>
 
         <main class="content">
-            <!-- Sección Inicio -->
-            <div class="section active" id="inicio">
-                <div class="logo-container">
-                    <div style="font-size: 80px;">🎮</div>
-                </div>
-                
-                <div class="presentation">
-                    <h2>Presentación</h2>
-                    <p>Bienvenidos a FurY Team, donde la pasión por el gaming se encuentra con la competencia de alto nivel. Somos un equipo dedicado a llevar nuestras habilidades al máximo y dominar cada desafío que se nos presente.</p>
+            <h2 class="page-title">Screenshots</h2>
+            
+            <div class="gallery">
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">📸</div>
+                    <h3 class="screenshot-title">Victoria Épica #1</h3>
+                    <p class="screenshot-date">05 Oct 2025</p>
                 </div>
 
-                <div class="players-section">
-                    <h3>FurY Team - Miembros activos (21)</h3>
-                    <div class="players-list">
-                        <div class="player-item">🇦🇷 FurY.rtxA (TL)</div>
-                        <div class="player-item">🇦🇷 FurY.Pelo</div>
-                        <div class="player-item">🇦🇷 FurY.Poker</div>
-                        <div class="player-item">🇦🇷 FurY.Washo</div>
-                        <div class="player-item">🇦🇷 FurY.Fanatic</div>
-                        <div class="player-item">🇦🇷 FurY.Flatron</div>
-                        <div class="player-item">🇦🇷 FurY.Darvulia</div>
-                        <div class="player-item">🇦🇷 FurY.Goku</div>
-                        <div class="player-item">🇦🇷 FurY.LeO</div>
-                        <div class="player-item">🇦🇷 FurY.Nic0</div>
-                        <div class="player-item">🇦🇷 FurY.Ox</div>
-                        <div class="player-item">🇦🇷 FurY.Relax</div>
-                        <div class="player-item">🇦🇷 FurY.R4n</div>
-                        <div class="player-item">🇦🇷 FurY.Taketa</div>
-                        <div class="player-item">🇦🇷 FurY.Beek</div>
-                        <div class="player-item">🇦🇷 FurY.Mojito</div>
-                        <div class="player-item">🇧🇷 FurY.Hunk</div>
-                        <div class="player-item">🇵🇪 Fury.Rayzen</div>
-                        <div class="player-item">🇵🇪 FurY.S1ck</div>
-                        <div class="player-item">🇵🇪 FurY.Raz</div>
-                        <div class="player-item">🇩🇴 FurY.Kh4irexec</div>
-                    </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">📸</div>
+                    <h3 class="screenshot-title">Torneo Final</h3>
+                    <p class="screenshot-date">03 Oct 2025</p>
                 </div>
-            </div>
 
-            <!-- Sección Screen -->
-            <div class="section" id="screen">
-                <div class="screen-section">
-                    <h2>Próximos Partidos - World Cup 2025</h2>
-                    <div class="match-grid">
-                        <div class="match-card">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect fill='%23000' width='800' height='1000'/%3E%3Ctext x='400' y='80' font-family='Arial Black' font-size='40' fill='%23FFA500' text-anchor='middle' font-weight='bold'%3EMONDAY 20 OCTUBER - 05:00 PM GMT%3C/text%3E%3Ctext x='400' y='850' font-family='Arial Black' font-size='48' fill='%23FFA500' text-anchor='middle' font-weight='bold'%3EGROUP K - GROUP STAGE MATCH%3C/text%3E%3Ctext x='250' y='950' font-family='Arial' font-size='32' fill='%23FFA500' text-anchor='middle'%3EHUNK%3C/text%3E%3Ctext x='400' y='980' font-family='Arial Black' font-size='60' fill='%23FFA500' text-anchor='middle'%3EVS%3C/text%3E%3Ctext x='550' y='950' font-family='Arial' font-size='32' fill='%23FFF' text-anchor='middle'%3EMONARCH%3C/text%3E%3Ctext x='400' y='1020' font-family='Arial' font-size='16' fill='%23FFA500' text-anchor='middle'%3EOGRL HALFLIFE%3C/text%3E%3Ctext x='400' y='1040' font-family='Arial' font-size='16' fill='%23FFA500' text-anchor='middle'%3EPLAYER WORLD CUP 2025%3C/text%3E%3C/svg%3E" alt="Match 1">
-                        </div>
-                        <div class="match-card">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect fill='%23000' width='800' height='1000'/%3E%3Ctext x='400' y='80' font-family='Arial Black' font-size='40' fill='%23FFA500' text-anchor='middle' font-weight='bold'%3ETUESDAY 21 OCTUBER - 02:00 AM GMT%3C/text%3E%3Ctext x='400' y='850' font-family='Arial Black' font-size='48' fill='%23FFA500' text-anchor='middle' font-weight='bold'%3EGROUP P - GROUP STAGE MATCH%3C/text%3E%3Ctext x='250' y='950' font-family='Arial' font-size='32' fill='%23FFA500' text-anchor='middle'%3EUNNAMED%3C/text%3E%3Ctext x='400' y='980' font-family='Arial Black' font-size='60' fill='%23FFA500' text-anchor='middle'%3EVS%3C/text%3E%3Ctext x='550' y='950' font-family='Arial' font-size='32' fill='%23FFF' text-anchor='middle'%3EPOKER%3C/text%3E%3Ctext x='400' y='1020' font-family='Arial' font-size='16' fill='%23FFA500' text-anchor='middle'%3EOGRL HALFLIFE%3C/text%3E%3Ctext x='400' y='1040' font-family='Arial' font-size='16' fill='%23FFA500' text-anchor='middle'%3EPLAYER WORLD CUP 2025%3C/text%3E%3C/svg%3E" alt="Match 2">
-                        </div>
-                    </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">📸</div>
+                    <h3 class="screenshot-title">Práctica Team</h3>
+                    <p class="screenshot-date">01 Oct 2025</p>
                 </div>
-            </div>
 
-            <!-- Sección Demos -->
-            <div class="section" id="demos">
-                <div class="demos-section">
-                    <h2>Demos Destacadas</h2>
-                    <div class="demo-list">
-                        <div class="demo-item">
-                            <h4>🎯 FurY vs Monarch - World Cup Qualifier</h4>
-                            <p>Fecha: 20 Octubre 2025 | Duración: 45:23</p>
-                        </div>
-                        <div class="demo-item">
-                            <h4>🎯 FurY.Hunk ACE Compilation</h4>
-                            <p>Fecha: 15 Octubre 2025 | Duración: 12:45</p>
-                        </div>
-                        <div class="demo-item">
-                            <h4>🎯 Team Practice Session</h4>
-                            <p>Fecha: 10 Octubre 2025 | Duración: 1:23:12</p>
-                        </div>
-                        <div class="demo-item">
-                            <h4>🎯 FurY.Poker Clutch Moments</h4>
-                            <p>Fecha: 5 Octubre 2025 | Duración: 8:34</p>
-                        </div>
-                    </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">📸</div>
+                    <h3 class="screenshot-title">Clutch Momento</h3>
+                    <p class="screenshot-date">28 Sep 2025</p>
                 </div>
-            </div>
 
-            <!-- Sección Info -->
-            <div class="section" id="info">
-                <div class="info-section">
-                    <h2>Información del Team</h2>
-                    <div class="info-content">
-                        <h3>📋 Sobre Nosotros</h3>
-                        <p>FurY Team es una organización de esports fundada con el objetivo de competir al más alto nivel en Half-Life y otros títulos competitivos. Nuestro roster internacional incluye talento de Argentina, Brasil, Perú y República Dominicana.</p>
-
-                        <h3>🏆 Logros Recientes</h3>
-                        <p>Clasificados para la OGRL Half-Life Player World Cup 2025. Participación en múltiples torneos regionales e internacionales con resultados destacados.</p>
-
-                        <h3>💼 Contacto</h3>
-                        <p>Para consultas de patrocinio, colaboraciones o información general, contacta con nuestro equipo de gestión a través de nuestras redes sociales oficiales.</p>
-
-                        <h3>🌐 Redes Sociales</h3>
-                        <p>Síguenos en nuestras plataformas para estar al día con nuestras competiciones, streams y contenido exclusivo del equipo.</p>
-                    </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">📸</div>
+                    <h3 class="screenshot-title">Match destacado</h3>
+                    <p class="screenshot-date">25 Sep 2025</p>
                 </div>
-            </div>
 
-            <!-- Sección Etc -->
-            <div class="section" id="etc">
-                <div class="etc-section">
-                    <h2>Recursos Adicionales</h2>
-                    <div class="etc-grid">
-                        <div class="etc-card">
-                            <h3>📺 Streams</h3>
-                            <p>Mira nuestras transmisiones en vivo y partidas competitivas</p>
-                        </div>
-                        <div class="etc-card">
-                            <h3>📊 Estadísticas</h3>
-                            <p>Consulta las stats de nuestros jugadores y equipos</p>
-                        </div>
-                        <div class="etc-card">
-                            <h3>📅 Calendario</h3>
-                            <p>Próximos partidos y eventos del equipo</p>
-                        </div>
-                        <div class="etc-card">
-                            <h3>🎮 Entrenamientos</h3>
-                            <p>Horarios de práctica y sesiones de equipo</p>
-                        </div>
-                        <div class="etc-card">
-                            <h3>🏅 Historia</h3>
-                            <p>Descubre la trayectoria de FurY Team</p>
-                        </div>
-                        <div class="etc-card">
-                            <h3>👥 Únete</h3>
-                            <p>Información sobre reclutamiento y pruebas</p>
-                        </div>
-                    </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">📸</div>
+                    <h3 class="screenshot-title">Team Photo</h3>
+                    <p class="screenshot-date">20 Sep 2025</p>
                 </div>
             </div>
         </main>
@@ -565,53 +256,5 @@
         <p>© 2025 FurY Team - Todos los derechos reservados</p>
         <p><a href="#contacto">Contacto</a> | <a href="#info">Información</a></p>
     </footer>
-
-    <script>
-        // Navegación entre secciones
-        const sidebarItems = document.querySelectorAll('.sidebar-item');
-        const sections = document.querySelectorAll('.section');
-
-        sidebarItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const sectionName = this.getAttribute('data-section');
-                
-                // Remover clase active de todos los items y secciones
-                sidebarItems.forEach(i => i.classList.remove('active'));
-                sections.forEach(s => s.classList.remove('active'));
-                
-                // Agregar clase active al item clickeado
-                this.classList.add('active');
-                
-                // Mostrar la sección correspondiente
-                const targetSection = document.getElementById(sectionName);
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                }
-            });
-        });
-
-        // Animación suave al hacer scroll
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observar elementos para animaciones
-        document.querySelectorAll('.player-item, .demo-item, .etc-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.5s, transform 0.5s';
-            observer.observe(el);
-        });
-    </script>
 </body>
 </html>
